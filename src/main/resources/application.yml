@@ -1,7 +1,7 @@
 server:
   port: 8080
   servlet:
-    context-path: /
+    context-path: /blog
     encoding:
       charset: UTF-8
       enabled: true
@@ -9,8 +9,6 @@ server:
 
 spring:
   mvc:
-    converters:
-      preferred-json-mapper: gson
     view:
       prefix: /WEB-INF/views/
       suffix: .jsp
@@ -24,7 +22,7 @@ spring:
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       use-new-id-generator-mappings: false
@@ -35,26 +33,3 @@ spring:
   jackson:
     serialization:
       fail-on-empty-beans: false
-
-  servlet:
-    multipart:
-      enabled: true
-      max-file-size: 2MB
-
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: joajy98@gmail.com
-    password: fiwbuonqdkvcsauz
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-
-secrect:
-  key: eornjs1449.
-
-file:
-  path: D:/workspace/springboot/upload/

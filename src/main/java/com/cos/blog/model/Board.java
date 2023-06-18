@@ -33,7 +33,7 @@ public class Board {
     private int count;
 
     @ManyToOne      //Board : User == Many : One
-    @JoinColumn(name = "userid")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @CreatedDate

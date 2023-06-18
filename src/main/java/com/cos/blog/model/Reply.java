@@ -24,11 +24,11 @@ public class Reply {
     private String content;
 
     @ManyToOne      //Reply : Board == Many : One
-    @JoinColumn(name = "boardId")
+    @JoinColumn(name = "board_id")
     private Board board;
 
     @ManyToOne      //Reply : User == Many : One
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @CreatedDate
