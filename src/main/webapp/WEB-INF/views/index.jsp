@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <%@ include file="layout/header.jsp"%>
 
 <div class="container">
@@ -13,3 +13,4 @@
 </div>
 
 <%@ include file="layout/footer.jsp"%>
+<script src="../js/user.js"></script>
