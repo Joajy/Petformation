@@ -6,10 +6,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
-import org.springframework.data.annotation.CreatedDate;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Data
@@ -36,8 +36,8 @@ public class Board {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @CreatedDate
-    private LocalDateTime createDate;
+    @CreationTimestamp
+    private Timestamp createDate;
 
     @OneToMany(mappedBy = "board", fetch = FetchType.EAGER)
     private List<Reply> reply;

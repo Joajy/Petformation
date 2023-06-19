@@ -4,10 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 @Data
 @NoArgsConstructor
@@ -31,7 +31,6 @@ public class Reply {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @CreatedDate
-    private LocalDateTime createDate;
-
+    @CreationTimestamp
+    private Timestamp createDate;
 }
