@@ -1,6 +1,6 @@
-package com.cos.blog.repository;
+package com.Kim.blog.repository;
 
-import com.cos.blog.model.User;
+import com.Kim.blog.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Integer> {

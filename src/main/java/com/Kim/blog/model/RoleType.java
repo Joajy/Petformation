@@ -1,4 +1,4 @@
-package com.cos.blog.model;
+package com.Kim.blog.model;
 
 
 public enum RoleType {

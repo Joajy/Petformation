@@ -1,4 +1,4 @@
-package com.cos.blog.test;
+package com.Kim.blog.test;
 
 import org.springframework.web.bind.annotation.*;
 

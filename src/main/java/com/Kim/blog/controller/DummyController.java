@@ -1,7 +1,7 @@
-package com.cos.blog.controller;
+package com.Kim.blog.controller;
 
-import com.cos.blog.model.User;
-import com.cos.blog.repository.UserRepository;
+import com.Kim.blog.model.User;
+import com.Kim.blog.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;

@@ -23,23 +23,23 @@
             <c:when test="${empty sessionScope.principal}">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="user/loginForm">로그인</a>
+                        <a class="nav-link" href="/blog/user/loginForm">로그인</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="user/joinForm">회원가입</a>
+                        <a class="nav-link" href="/blog/user/joinForm">회원가입</a>
                     </li>
             </c:when>
 
             <c:otherwise>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="user/writeForm">글쓰기</a>
+                        <a class="nav-link" href="/blog/board/writeForm">글쓰기</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="user/userForm">회원정보</a>
+                        <a class="nav-link" href="/blog/user/userForm">회원정보</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="user/logout">로그아웃</a>
+                        <a class="nav-link" href="/blog/user/logout">로그아웃</a>
                     </li>
             </c:otherwise>
         </c:choose>

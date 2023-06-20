@@ -1,4 +1,4 @@
-package com.cos.blog.model;
+package com.Kim.blog.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,23 +14,22 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @Builder
 @Entity
-public class User {
+public class Reply {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 30, unique = true)
-    private String username;
+    @Column(nullable = false, length = 200)
+    private String content;
 
-    @Column(nullable = false, length = 100)
-    private String password;
+    @ManyToOne      //Reply : Board == Many : One
+    @JoinColumn(name = "board_id")
+    private Board board;
 
-    @Column(nullable = false, length = 50)
-    private String email;
-
-    @Enumerated(EnumType.STRING)
-    private RoleType role;
+    @ManyToOne      //Reply : User == Many : One
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @CreationTimestamp
     private Timestamp createDate;

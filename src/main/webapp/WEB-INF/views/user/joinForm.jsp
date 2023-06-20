@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <%@ include file="../layout/header.jsp"%>
 
 <div class="container">
     <form>
         <div class="form-group">
             <label for="username">Username:</label>
-            <input type="username" class="form-control" id="username" placeholder="Enter username">
+            <input type="text" class="form-control" id="username" placeholder="Enter username">
         </div>
         <div class="form-group">
             <label for="password">Password:</label>
@@ -20,4 +20,4 @@
     <button id="btn-save" class="btn btn-primary">회원가입</button>
 </div>
 <%@ include file="../layout/footer.jsp"%>
-<script src="../js/user.js"></script>
+<script src="/blog/js/user.js"></script>
