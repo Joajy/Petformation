@@ -16,4 +16,4 @@
     <button id="btn-login" class="btn btn-primary">로그인</button>
 </div>
 <%@ include file="../layout/footer.jsp"%>
-<script src="/blog/js/user.js"></script>
+<script src="/js/user.js"></script>

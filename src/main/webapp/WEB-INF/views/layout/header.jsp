@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<sec:authorize access="isAuthenticated()">
+    <sec:authentication property="principal" var="principal"/>
+</sec:authorize>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,32 +18,34 @@
 <body>
 
 <nav class="navbar navbar-expand-sm bg-light">
-    <a class="navbar-brand" href="/blog">Home</a>
+    <a class="navbar-brand" href="/">Home</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <c:choose>
-            <c:when test="${empty sessionScope.principal}">
+        <%--principal이 empty일 경우 로그인과 회원가입을 navbar에 표시--%>
+            <c:when test="${empty principal}">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="/blog/user/loginForm">로그인</a>
+                        <a class="nav-link" href="/loginForm">로그인</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/blog/user/joinForm">회원가입</a>
+                        <a class="nav-link" href="/joinForm">회원가입</a>
                     </li>
             </c:when>
 
+            <%--principal이 not empty인 경우 글쓰기, 회원정보 및 로그아웃 링크를 navbar에 표시--%>
             <c:otherwise>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="/blog/board/writeForm">글쓰기</a>
+                        <a class="nav-link" href="/board/form">글쓰기</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/blog/user/userForm">회원정보</a>
+                        <a class="nav-link" href="/user/form">회원정보</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/blog/user/logout">로그아웃</a>
+                        <a class="nav-link" href="/logout">로그아웃</a>
                     </li>
             </c:otherwise>
         </c:choose>
