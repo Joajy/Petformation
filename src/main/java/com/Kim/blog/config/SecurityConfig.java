@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 //Bean 등록으로 스프링 컨테이너에서 객체 관리
@@ -56,6 +56,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 @EnableGlobalMethodSecurity(prePostEnabled = true)  //특정 url 접근 시 권한 및 인증 확인
 @RequiredArgsConstructor
 public class SecurityConfig {
+
+    @Bean
+    public BCryptPasswordEncoder encodePWD(){
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
