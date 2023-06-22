@@ -2,6 +2,9 @@
 
 <%@ include file="../layout/header.jsp"%>
 
+<%--필요 없는 세션 줄이기--%>
+<%@ page session="false" %>
+
 <div class="container">
     <form action="/auth/loginProc" method="POST">
         <div class="form-group">

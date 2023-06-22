@@ -2,6 +2,9 @@
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <%@ include file="../layout/header.jsp"%>
 
+<%--필요 없는 세션 줄이기--%>
+<%@ page session="false" %>
+
 <div class="container">
     <form>
         <div class="form-group">

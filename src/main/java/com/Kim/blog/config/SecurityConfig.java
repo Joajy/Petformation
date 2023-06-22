@@ -31,6 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(principalDetailService).passwordEncoder(encodePWD());
     }
 
+
+    //antMatchers에 있는 주소 외에는 모두 인증이 필요함
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
