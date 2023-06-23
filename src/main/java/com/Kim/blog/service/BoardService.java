@@ -27,4 +27,11 @@ public class BoardService {
         return boardRepository.findAll(pageable);
     }
 
+    public Board detail(int id){
+        return boardRepository.findById(id)
+                .orElseThrow(()->{
+                    return new IllegalArgumentException("글을 읽어올 수 없습니다.(아이디를 찾을 수 없습니다)");
+                });
+    }
+
 }

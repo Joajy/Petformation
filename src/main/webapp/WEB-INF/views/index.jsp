@@ -2,8 +2,8 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <%@ include file="layout/header.jsp"%>
 
-<%--필요 없는 세션 줄이기--%>
-<%@ page session="false" %>
+<%--필요 없는 세션 줄이기<%@ page session="false" %>--%>
+
 
 <div class="container">
     <c:forEach var="board" items="${boards.content}">
@@ -11,7 +11,7 @@
             <div class="card-body">
                 <h4 class="card-title">${board.title}</h4>
                 <p class="card-text">${board.content}</p>
-                <a href="#" class="btn btn-primary">상세보기</a>
+                <a href="/board/${board.id}" class="btn btn-primary">상세보기</a>
             </div>
         </div>
     </c:forEach>
