@@ -2,8 +2,8 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <%@ include file="layout/header.jsp"%>
 
-<%--필요 없는 세션 줄이기<%@ page session="false" %>--%>
-
+<%--필요 없는 세션 줄이기--%>
+<%@ page session="false" %>
 
 <div class="container">
     <c:forEach var="board" items="${boards.content}">
