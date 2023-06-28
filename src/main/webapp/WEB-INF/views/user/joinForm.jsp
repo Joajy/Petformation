@@ -8,15 +8,15 @@
 <div class="container">
     <form>
         <div class="form-group">
-            <label for="username">Username:</label>
+            <label for="username">Username</label>
             <input type="text" class="form-control" id="username" placeholder="Enter username">
         </div>
         <div class="form-group">
-            <label for="password">Password:</label>
+            <label for="password">Password</label>
             <input type="password" class="form-control" id="password" placeholder="Enter password">
         </div>
         <div class="form-group">
-            <label for="email">Email address:</label>
+            <label for="email">Email address</label>
             <input type="email" class="form-control" id="email" placeholder="Enter email">
         </div>
     </form>
