@@ -39,7 +39,7 @@ public class Board {
     private Timestamp createDate;
 
     //mappedBy 연관관계의 주인이 아님을 표시 -> 외래키가 아님
-    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties("{board}")
     @OrderBy("id desc")
     private List<Reply> reply;
