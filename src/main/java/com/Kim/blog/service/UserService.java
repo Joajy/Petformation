@@ -26,17 +26,13 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public User findUser(String username) {
-        User user = userRepository.findByUsername(username).orElseGet(()->{
-            return new User();
-        });
+        User user = userRepository.findByUsername(username).orElseGet(User::new);
         return user;
     }
 
     @Transactional
     public void update(User user) {
-        User persistence = userRepository.findById(user.getId()).orElseThrow(() -> {
-            return new IllegalArgumentException("해당하는 회원정보가 없습니다.");
-        });
+        User persistence = userRepository.findById(user.getId()).orElseThrow(() -> new IllegalArgumentException("해당하는 회원정보가 없습니다."));
 
         //Check Validation
         //if oAuth field has no value, can change email & password of that account

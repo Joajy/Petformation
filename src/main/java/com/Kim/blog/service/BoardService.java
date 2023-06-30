@@ -34,9 +34,7 @@ public class BoardService {
     @Transactional(readOnly = true)
     public Board detail(int id){
         return boardRepository.findById(id)
-                .orElseThrow(()->{
-                    return new IllegalArgumentException("글을 읽어올 수 없습니다.(아이디를 찾을 수 없습니다)");
-                });
+                .orElseThrow(()-> new IllegalArgumentException("글을 읽어올 수 없습니다.(아이디를 찾을 수 없습니다)"));
     }
 
     @Transactional
@@ -47,18 +45,14 @@ public class BoardService {
     @Transactional
     public void update(int id, Board requestBoard) {
         Board board = boardRepository.findById(id)
-                .orElseThrow(()->{
-                    return new IllegalArgumentException("글을 찾을 수 없습니다.(아이디를 찾을 수 없습니다)");
-                });
+                .orElseThrow(()-> new IllegalArgumentException("글을 찾을 수 없습니다.(아이디를 찾을 수 없습니다)"));
         board.setTitle(requestBoard.getTitle());
         board.setContent(requestBoard.getContent());
     }
 
     @Transactional
     public void writeReply(int boardId, Reply requestReply, User user){
-        Board board = boardRepository.findById(boardId).orElseThrow(() -> {
-            return new IllegalArgumentException("댓글 작성 실패: 글을 찾을 수 없습니다.");
-        });
+        Board board = boardRepository.findById(boardId).orElseThrow(() -> new IllegalArgumentException("댓글 작성 실패: 글을 찾을 수 없습니다."));
         requestReply.setUser(user);
         requestReply.setBoard(board);
         replyRepository.save(requestReply);
