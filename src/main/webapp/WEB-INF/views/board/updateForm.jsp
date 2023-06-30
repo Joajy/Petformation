@@ -14,7 +14,7 @@
             <textarea class="form-control summernote" rows="5" cols="" id="content"></textarea>
         </div>
     </form>
-    <button id="btn-update" class="btn btn-primary">작성</button>
+    <button id="btn-update" class="btn btn-primary">Correction</button>
 </div>
 
 <script>

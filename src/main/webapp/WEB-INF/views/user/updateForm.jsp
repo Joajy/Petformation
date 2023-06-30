@@ -18,11 +18,11 @@
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" value="${principal.user.email}"  class="form-control" id="email" placeholder="Enter email" readonly>
+                <input type="email" value="${principal.user.email}" class="form-control" id="email" placeholder="Enter email" readonly>
             </div>
         </c:if>
     </form>
-    <button id="btn-update" class="btn btn-primary">수정</button>
+    <button id="btn-update" class="btn btn-primary">Correction</button>
 </div>
 <%@ include file="../layout/footer.jsp"%>
 <script src="/js/user.js"></script>

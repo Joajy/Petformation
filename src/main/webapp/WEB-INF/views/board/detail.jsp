@@ -3,15 +3,15 @@
 <%@ include file="../layout/header.jsp"%>
 
 <div class="container">
-        <button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
+        <button class="btn btn-secondary" onclick="history.back()">Back</button>
         <c:if test="${board.user.id == principal.user.id}">
-            <a href="/board/${board.id}/updateForm" class="btn btn-warning">수정</a>
-            <button id="btn-delete" class="btn btn-danger">삭제</button>
+            <a href="/board/${board.id}/updateForm" class="btn btn-warning">Correction</a>
+            <button id="btn-delete" class="btn btn-danger">Delete</button>
         </c:if>
         <br/>
     <div>
-        글 번호: <span id="id"><i>${board.id} </i></span>
-        작성자명: <span><i>${board.user.username} </i></span>
+        Post Number: <span id="id"><i>${board.id} </i></span>
+        Username: <span><i>${board.user.username} </i></span>
     </div>
         <div class="form-group">
             <h3>${board.title}</h3>
