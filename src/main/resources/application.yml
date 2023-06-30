@@ -34,3 +34,5 @@ spring:
   jackson:
     serialization:
       fail-on-empty-beans: false
+BlueStar:
+  key: bluestar1@

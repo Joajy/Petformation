@@ -26,19 +26,28 @@ public class UserService {
         userRepository.save(user);
     }
 
+    @Transactional(readOnly = true)
+    public User findUser(String username) {
+        User user = userRepository.findByUsername(username).orElseGet(()->{
+            return new User();
+        });
+        return user;
+    }
+
     @Transactional
     public void update(User user) {
         User persistence = userRepository.findById(user.getId()).orElseThrow(() -> {
             return new IllegalArgumentException("해당하는 회원정보가 없습니다.");
         });
-        String rawPassword = user.getPassword();
-        String encPassword = encoder.encode(rawPassword);
-        persistence.setPassword(encPassword);
-        persistence.setEmail(user.getEmail());
-    }
 
-/*    @Transactional(readOnly = true)
-    public User login(User user) {
-        return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
-    }*/
+        //Check Validation
+        //if oAuth field has no value, can change email & password of that account
+        String oAuth = persistence.getOauth();
+        if(oAuth == null || oAuth.equals("")) {
+            String rawPassword = user.getPassword();
+            String encPassword = encoder.encode(rawPassword);
+            persistence.setPassword(encPassword);
+            persistence.setEmail(user.getEmail());
+        }
+    }
 }
