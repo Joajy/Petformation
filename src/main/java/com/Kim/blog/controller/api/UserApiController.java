@@ -4,7 +4,7 @@ import com.Kim.blog.dto.ResponseDto;
 import com.Kim.blog.model.User;
 import com.Kim.blog.model.RoleType;
 import com.Kim.blog.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,20 +16,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequiredArgsConstructor
 public class UserApiController {
 
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final UserService userService;
+    private final AuthenticationManager authenticationManager;
 
     @PostMapping("/auth/joinProc")
     public ResponseDto<Integer> save(@RequestBody User user) {
         System.out.println("UserApiController: save 함수 호출");
         user.setRole(RoleType.USER);
         userService.join(user);
-        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+        return new ResponseDto<>(HttpStatus.OK.value(), 1);
     }
 
     @PutMapping("/user")
@@ -39,6 +37,6 @@ public class UserApiController {
 
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+        return new ResponseDto<>(HttpStatus.OK.value(), 1);
     }
 }

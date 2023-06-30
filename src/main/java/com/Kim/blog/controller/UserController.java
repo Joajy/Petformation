@@ -8,7 +8,7 @@ import com.Kim.blog.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,17 +25,16 @@ import org.springframework.web.client.RestTemplate;
     인증이 필요한 사용자에게 /auth/** 출입 경로 허용
  */
 @Controller
+@RequiredArgsConstructor
 public class UserController {
 
     //Absolutely important Main key(Will never leaked!)
     @Value("${BlueStar.key}")
     private String blueStarKey;
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
     @GetMapping("/auth/joinForm")
     public String joinForm() {

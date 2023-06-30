@@ -3,19 +3,17 @@ package com.Kim.blog.service;
 import com.Kim.blog.model.RoleType;
 import com.Kim.blog.model.User;
 import com.Kim.blog.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private BCryptPasswordEncoder encoder;
+    private final UserRepository userRepository;
+    private final BCryptPasswordEncoder encoder;
 
     @Transactional
     public void join(User user) {

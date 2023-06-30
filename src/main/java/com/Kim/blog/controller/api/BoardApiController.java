@@ -5,16 +5,16 @@ import com.Kim.blog.dto.ResponseDto;
 import com.Kim.blog.model.Board;
 import com.Kim.blog.model.Reply;
 import com.Kim.blog.service.BoardService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequiredArgsConstructor
 public class BoardApiController {
 
-    @Autowired
-    private BoardService boardService;
+    private final BoardService boardService;
 
     @PostMapping("/api/board")
     public ResponseDto<Integer> save(@RequestBody Board board, @AuthenticationPrincipal PrincipalDetail principal) {

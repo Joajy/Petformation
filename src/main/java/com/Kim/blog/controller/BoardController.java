@@ -1,7 +1,7 @@
 package com.Kim.blog.controller;
 
 import com.Kim.blog.service.BoardService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -11,11 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
+@RequiredArgsConstructor
 public class BoardController {
 
-    @Autowired
-    private BoardService boardService;
-
+    private final BoardService boardService;
     @GetMapping({"", "/"})
     public String index(Model model, @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         model.addAttribute("boards", boardService.boardList(pageable));
