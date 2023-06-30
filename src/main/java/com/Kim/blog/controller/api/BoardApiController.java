@@ -38,7 +38,13 @@ public class BoardApiController {
     @PostMapping("/api/board/{boardId}/reply")
     public ResponseDto<Integer> saveReply(@PathVariable int boardId, @RequestBody Reply reply, @AuthenticationPrincipal PrincipalDetail principal) {
         boardService.writeReply(boardId, reply, principal.getUser());
-
         return new ResponseDto<>(HttpStatus.OK.value(), 1);
     }
+
+    @DeleteMapping("/api/board/{boardId}/reply/{replyId}")
+    public ResponseDto<Integer> deleteReply(@PathVariable int replyId) {
+        boardService.deleteReply(replyId);
+        return new ResponseDto<>(HttpStatus.OK.value(), 1);
+    }
+
 }

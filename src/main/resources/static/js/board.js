@@ -107,6 +107,22 @@ let index = {
         });
     },
 
+    deleteReply: function(boardId, replyId) {
+        $.ajax({
+            type: "DELETE",
+            url: `/api/board/${boardId}/reply/${replyId}`,
+            dataType: "json"
+        }).done(function (resp) {
+            if(resp.status == 500){
+                alert("댓글 삭제 중 문제가 발생했습니다.");
+                return false;
+            }
+            alert("댓글이 삭제되었습니다.");
+            location.href = `/board/${boardId}`;
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    }
 }
 
 index.init();
