@@ -1,8 +1,10 @@
 package com.Kim.blog.service;
 
 import com.Kim.blog.model.Board;
+import com.Kim.blog.model.Reply;
 import com.Kim.blog.model.User;
 import com.Kim.blog.repository.BoardRepository;
+import com.Kim.blog.repository.ReplyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +17,9 @@ public class BoardService {
 
     @Autowired
     private BoardRepository boardRepository;
+
+    @Autowired
+    private ReplyRepository replyRepository;
 
     @Transactional
     public void write(Board board, User user) {
@@ -49,5 +54,15 @@ public class BoardService {
                 });
         board.setTitle(requestBoard.getTitle());
         board.setContent(requestBoard.getContent());
+    }
+
+    @Transactional
+    public void writeReply(int boardId, Reply requestReply, User user){
+        Board board = boardRepository.findById(boardId).orElseThrow(() -> {
+            return new IllegalArgumentException("댓글 작성 실패: 글을 찾을 수 없습니다.");
+        });
+        requestReply.setUser(user);
+        requestReply.setBoard(board);
+        replyRepository.save(requestReply);
     }
 }

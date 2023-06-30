@@ -1,6 +1,7 @@
 package com.Kim.blog.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,7 +32,7 @@ public class Board {
     private int count;
 
     @ManyToOne      //Board : User == Many : One
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @CreationTimestamp
@@ -39,5 +40,7 @@ public class Board {
 
     //mappedBy 연관관계의 주인이 아님을 표시 -> 외래키가 아님
     @OneToMany(mappedBy = "board", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("{board}")
+    @OrderBy("id desc")
     private List<Reply> reply;
 }

@@ -3,6 +3,7 @@ package com.Kim.blog.controller.api;
 import com.Kim.blog.config.auth.PrincipalDetail;
 import com.Kim.blog.dto.ResponseDto;
 import com.Kim.blog.model.Board;
+import com.Kim.blog.model.Reply;
 import com.Kim.blog.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,8 +30,15 @@ public class BoardApiController {
     }
 
     @PutMapping("/api/board/{id}")
-    public ResponseDto<Integer> update(@PathVariable int id, @RequestBody Board board){
+    public ResponseDto<Integer> update(@PathVariable int id, @RequestBody Board board) {
         boardService.update(id, board);
+        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+    }
+
+    @PostMapping("/api/board/{boardId}/reply")
+    public ResponseDto<Integer> saveReply(@PathVariable int boardId, @RequestBody Reply reply, @AuthenticationPrincipal PrincipalDetail principal) {
+        boardService.writeReply(boardId, reply, principal.getUser());
+
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
 }
