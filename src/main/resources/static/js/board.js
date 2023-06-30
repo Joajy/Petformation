@@ -27,7 +27,11 @@ let index = {
             contentType:"application/json; charset=utf-8",
             dataType: "json"
         }).done(function (resp) {
-           alert("글쓰기가 완료되었습니다.");
+            if(resp.status == 500){
+                alert("게시글 업로드 중 문제가 발생했습니다.");
+                return false;
+            }
+           alert("게시글이 등록되었습니다.");
            location.href = "/";
         }).fail(function (error) {
             alert(JSON.stringify(error));
@@ -42,7 +46,11 @@ let index = {
             url: "/api/board/"+id,
             dataType: "json"
         }).done(function (resp) {
-            alert("글 삭제가 완료되었습니다.");
+            if(resp.status == 500){
+                alert("게시글 삭제 중 문제가 발생했습니다.");
+                return false;
+            }
+            alert("게시글 삭제가 완료되었습니다.");
             location.href = "/";
         }).fail(function (error) {
             alert(JSON.stringify(error));
@@ -64,7 +72,11 @@ let index = {
             contentType:"application/json; charset=utf-8",
             dataType: "json"
         }).done(function (resp) {
-            alert("글 수정이 완료되었습니다.");
+            if(resp.status == 500){
+                alert("게시글 수정 중 문제가 발생했습니다.");
+                return false;
+            }
+            alert("게시글 수정이 완료되었습니다.");
             location.href = "/";
         }).fail(function (error) {
             alert(JSON.stringify(error));
@@ -84,6 +96,10 @@ let index = {
             contentType:"application/json; charset=utf-8",
             dataType: "json"
         }).done(function (resp) {
+            if(resp.status == 500){
+                alert("댓글 작성 중 문제가 발생했습니다.");
+                return false;
+            }
             alert("댓글 작성이 완료되었습니다.");
             location.href = `/board/${id}`;
         }).fail(function (error) {
