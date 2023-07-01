@@ -1,6 +1,7 @@
 package com.Kim.blog.config;
 
 //import com.Kim.blog.config.auth.PrincipalDetailService;
+import com.Kim.blog.config.auth.PrincipalDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 //Bean 등록으로 스프링 컨테이너에서 객체 관리
 /*@Configuration //Bean 등록
@@ -59,6 +61,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    private final AuthenticationFailureHandler userLoginFailHandler;
+
     @Bean
     public BCryptPasswordEncoder encodePWD(){
         return new BCryptPasswordEncoder();
@@ -83,8 +87,9 @@ public class SecurityConfig {
                 .formLogin()
                 .loginPage("/auth/loginForm")
                 .loginProcessingUrl("/auth/loginProc") //Spring Security에서 이 주소로 오는 Login Request를 가로챈다
+                .failureHandler(userLoginFailHandler)
                 .defaultSuccessUrl("/")
-                .failureUrl("/auth/loginForm")
-                .and().build();
+                .and()
+                .build();
     }
 }

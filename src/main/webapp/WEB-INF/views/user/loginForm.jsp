@@ -15,9 +15,15 @@
             <label for="password">Password</label>
             <input type="password" name="password" class="form-control" id="password" placeholder="Enter password">
         </div>
+        <span>
+				<c:if test="${error}">
+                    <p id="valid" class="alert alert-danger">${exception}</p>
+                </c:if>
+		</span>
         <button id="btn-login" class="btn btn-primary" >Sign in</button>
         <a href="https://kauth.kakao.com/oauth/authorize?client_id=d8b0fe0ec31fa20c787dcf4706b50843&redirect_uri=http://localhost:8080/auth/kakao/callback&response_type=code">
             <img height="39px" src="/image/kakao_login_button.png"></a>
     </form>
+
 </div>
 <%@ include file="../layout/footer.jsp"%>
