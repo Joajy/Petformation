@@ -61,6 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    private final PrincipalDetailService principalDetailService;
     private final AuthenticationFailureHandler userLoginFailHandler;
 
     @Bean
@@ -78,18 +79,24 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf().disable()
+                .rememberMe()
+                    .rememberMeParameter("remember")
+                    .tokenValiditySeconds(1800) //sec
+                    .alwaysRemember(false)
+                    .userDetailsService(principalDetailService)
+                .and()
                 .authorizeRequests()
-                .antMatchers("/", "/auth/**", "/js/**", "/css/**", "/image/**")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
+                    .antMatchers("/", "/auth/**", "/js/**", "/css/**", "/image/**")
+                    .permitAll()
+                    .anyRequest()
+                    .authenticated()
                 .and()
-                .formLogin()
-                .loginPage("/auth/loginForm")
-                .loginProcessingUrl("/auth/loginProc") //Spring Security에서 이 주소로 오는 Login Request를 가로챈다
-                .failureHandler(userLoginFailHandler)
-                .defaultSuccessUrl("/")
+                    .formLogin()
+                    .loginPage("/auth/loginForm")
+                    .loginProcessingUrl("/auth/loginProc") //Spring Security에서 이 주소로 오는 Login Request를 가로챈다
+                    .failureHandler(userLoginFailHandler)
+                    .defaultSuccessUrl("/")
                 .and()
-                .build();
+                    .build();
     }
 }
