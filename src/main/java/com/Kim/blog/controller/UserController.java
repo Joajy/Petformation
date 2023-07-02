@@ -30,7 +30,7 @@ import org.springframework.web.client.RestTemplate;
 @RequiredArgsConstructor
 public class UserController {
 
-    //Absolutely important Main key(Will never leaked!)
+    //Absolutely important Main key(Never leaked!)
     @Value("${BlueStar.key}")
     private String blueStarKey;
 

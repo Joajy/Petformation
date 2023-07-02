@@ -11,14 +11,17 @@
             <label for="username">Username</label>
             <input type="text" class="form-control" id="username" placeholder="Enter username">
         </div>
+        <p id="valid_username"></p>
         <div class="form-group">
             <label for="password">Password</label>
             <input type="password" class="form-control" id="password" placeholder="Enter password">
         </div>
+        <p id="valid_password"></p>
         <div class="form-group">
             <label for="email">Email</label>
             <input type="email" class="form-control" id="email" placeholder="Enter email">
         </div>
+        <p id="valid_email"></p>
     </form>
     <button id="btn-save" class="btn btn-primary">Sign up</button>
 </div>
