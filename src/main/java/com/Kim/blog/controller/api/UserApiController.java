@@ -2,7 +2,6 @@ package com.Kim.blog.controller.api;
 
 import com.Kim.blog.dto.ResponseDto;
 import com.Kim.blog.dto.UserRequestDto;
-import com.Kim.blog.model.User;
 import com.Kim.blog.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -40,16 +39,29 @@ public class UserApiController {
             Map<String, String> validatorResult = userService.validateHandling(bindingResult);
             return new ResponseDto<>(HttpStatus.BAD_REQUEST.value(), validatorResult);
         }
-        userService.join(userDto);
+        userService.save(userDto);
         return new ResponseDto<>(HttpStatus.OK.value(), 1);
     }
 
-    @PutMapping("/user")
-    public ResponseDto<Integer> update(@RequestBody User user) {    //RequestBody 통해 JSON 형식 데이터를 받아옴
-        userService.update(user);
-        //Transaction 종료로 DB값은 변경되지만, 세션값 변경되지 않으므로 데이터 일치상태 확인 어려움
+//    @PutMapping("/user")
+//    public ResponseDto<Integer> update(@RequestBody User user) {    //RequestBody 통해 JSON 형식 데이터를 받아옴
+//        userService.update(user);
+//        //Transaction 종료로 DB값은 변경되지만, 세션값 변경되지 않으므로 데이터 일치상태 확인 어려움
+//
+//        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+//        return new ResponseDto<>(HttpStatus.OK.value(), 1);
+//    }
 
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+    @PutMapping("/user")
+    public ResponseDto<?> update(@Valid @RequestBody UserRequestDto userDto, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            Map<String, String> validatorResult = userService.validateHandling(bindingResult);
+            return new ResponseDto<>(HttpStatus.BAD_REQUEST.value(), validatorResult);
+        }
+        userService.update(userDto);
+
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userDto.getUsername(), userDto.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         return new ResponseDto<>(HttpStatus.OK.value(), 1);
     }

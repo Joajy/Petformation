@@ -141,7 +141,7 @@ public class UserController {
         User originUser = userService.findUser(kakaoUser.getUsername());
 
         if(originUser.getUsername() == null) {
-            userService.join(kakaoUser);
+            userService.save(kakaoUser);
         }
 
         //processing Login

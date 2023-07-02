@@ -11,15 +11,18 @@
             <%--value에서 principal을 통해 기존의 값을 가져오는 것을 시사함--%>
             <%--사용자 이름은 수정할 수 없도록 readonly 설정을 걸어놨음--%>
         </div>
+        <p id="valid_username"></p>
         <c:if test="${empty principal.user.oauth}">
             <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" class="form-control" id="password" placeholder="Enter password">
             </div>
+            <p id="valid_password"></p>
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" value="${principal.user.email}" class="form-control" id="email" placeholder="Enter email" readonly>
             </div>
+            <p id="valid_email"></p>
         </c:if>
     </form>
     <button id="btn-update" class="btn btn-primary">Correction</button>

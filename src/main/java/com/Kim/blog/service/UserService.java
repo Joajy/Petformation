@@ -22,7 +22,7 @@ public class UserService {
     private final BCryptPasswordEncoder encoder;
 
     @Transactional
-    public void join(User user) {
+    public void save(User user) {
         String rawPassword = user.getPassword();
         String encPassword = encoder.encode(rawPassword);
         user.setPassword(encPassword);
@@ -33,7 +33,7 @@ public class UserService {
 
     //Public API Join
     @Transactional
-    public void join(UserRequestDto userDto) {
+    public void save(UserRequestDto userDto) {
         User user = User.builder()
                 .username((userDto.getUsername()))
                 .password(encoder.encode(userDto.getPassword()))
@@ -50,19 +50,34 @@ public class UserService {
     }
 
     @Transactional
-    public void update(User user) {
-        User persistence = userRepository.findById(user.getId()).orElseThrow(() -> new IllegalArgumentException("해당하는 회원정보가 없습니다."));
+    public void update(UserRequestDto userDto) {
+        User persistence = userRepository.findByUsername(userDto.getUsername()).orElseThrow(() -> new IllegalArgumentException("해당하는 회원정보가 없습니다."));
 
         //Check Validation
         //if oAuth field has no value, can change email & password of that account
         String oAuth = persistence.getOauth();
         if(oAuth == null || oAuth.equals("")) {
-            String rawPassword = user.getPassword();
+            String rawPassword = userDto.getPassword();
             String encPassword = encoder.encode(rawPassword);
             persistence.setPassword(encPassword);
-            persistence.setEmail(user.getEmail());
+            persistence.setEmail(userDto.getEmail());
         }
     }
+
+//    @Transactional
+//    public void update(User user) {
+//        User persistence = userRepository.findById(user.getId()).orElseThrow(() -> new IllegalArgumentException("해당하는 회원정보가 없습니다."));
+//
+//        //Check Validation
+//        //if oAuth field has no value, can change email & password of that account
+//        String oAuth = persistence.getOauth();
+//        if(oAuth == null || oAuth.equals("")) {
+//            String rawPassword = user.getPassword();
+//            String encPassword = encoder.encode(rawPassword);
+//            persistence.setPassword(encPassword);
+//            persistence.setEmail(user.getEmail());
+//        }
+//    }
 
     @Transactional(readOnly = true)
     public Map<String, String> validateHandling(BindingResult bindingResult) {
