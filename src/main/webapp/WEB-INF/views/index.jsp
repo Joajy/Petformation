@@ -12,6 +12,7 @@
                 <h4 class="card-title">${board.title}</h4>
                 <p class="card-text">${board.content}</p>
                 <a href="/board/${board.id}" class="btn btn-primary">Detail</a>
+                <span style="float:right">Created Date: elapsedTime(${board.createDate})</span><br/>
             </div>
         </div>
     </c:forEach>

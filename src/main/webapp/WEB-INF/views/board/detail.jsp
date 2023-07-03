@@ -40,7 +40,8 @@
                 <li id="reply-${reply.id}" class="list-group-item d-flex justify-content-between">
                     <div>${reply.content}</div>
                     <div class="d-flex">
-                        <div class="font-italic">User: ${reply.user.username} &nbsp</div>
+                        <div class="font-italic">User: ${reply.user.username} &nbsp</div><br/>
+                        <span style="float:right">${board.createDate} &nbsp</span><br/>
                         <c:if test="${reply.user.username==principal.user.username}">
                             <button onclick="index.deleteReply(${board.id}, ${reply.id})" class="badge">Delete</button>
                         </c:if>

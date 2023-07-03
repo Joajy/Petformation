@@ -33,6 +33,7 @@ public class BoardService {
 
     @Transactional(readOnly = true)
     public Board detail(int id){
+        boardRepository.updateHit(id);
         return boardRepository.findById(id)
                 .orElseThrow(()-> new IllegalArgumentException("글을 읽어올 수 없습니다.(아이디를 찾을 수 없습니다)"));
     }
