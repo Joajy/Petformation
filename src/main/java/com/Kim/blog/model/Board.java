@@ -30,6 +30,7 @@ public class Board {
     @Lob                //대용량 데이터 처리 대비
     private String content;
 
+    @Column(columnDefinition = "integer default 0", nullable = false)
     private int count;
 
     @ManyToOne      //Board : User == Many : One

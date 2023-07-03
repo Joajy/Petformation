@@ -11,6 +11,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 
 @Service
 @RequiredArgsConstructor
@@ -31,9 +35,33 @@ public class BoardService {
         return boardRepository.findAll(pageable);
     }
 
-    @Transactional(readOnly = true)
-    public Board detail(int id){
-        boardRepository.updateHit(id);
+    @Transactional
+    public Board detail(Integer id, HttpServletRequest request, HttpServletResponse response){
+        if(request != null) {
+            Cookie[] cookies = request.getCookies();
+            Cookie oldCookie = null;
+            if (cookies != null) {
+                for (Cookie cookie : cookies){
+                    if (cookie.getName().equals("boardView"))
+                        oldCookie = cookie;
+                }
+            }
+            if (oldCookie != null) {
+                if (!oldCookie.getValue().contains("[" + id.toString() + "]")) {
+                    boardRepository.updateHit(id);
+                    oldCookie.setValue(oldCookie.getValue() + "_[" + id + "]");
+                    oldCookie.setPath("/");
+                    oldCookie.setMaxAge(60 * 60 * 24);
+                    response.addCookie(oldCookie);
+                }
+            } else {
+                boardRepository.updateHit(id);
+                Cookie newCookie = new Cookie("boardView", "[" + id + "]");
+                newCookie.setPath("/");
+                newCookie.setMaxAge(60 * 60 * 24);
+                response.addCookie(newCookie);
+            }
+        }
         return boardRepository.findById(id)
                 .orElseThrow(()-> new IllegalArgumentException("글을 읽어올 수 없습니다.(아이디를 찾을 수 없습니다)"));
     }

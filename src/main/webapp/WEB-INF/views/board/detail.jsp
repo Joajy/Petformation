@@ -20,6 +20,7 @@
     <div class="form-group">
         <div>${board.content}</div>
     </div>
+    <span style="float:right">Views: ${board.count}</span><br/>
 
     <div class="card">
         <form>
