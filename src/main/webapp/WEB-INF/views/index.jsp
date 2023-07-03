@@ -6,6 +6,12 @@
 <%@ page session="false" %>
 
 <div class="container">
+    <form action="/" method="GET" class="form-inline p-2 bd-highlight justify-content-between">
+        <div>
+            <input type="text" name="searchKeyword" class="form-control" placeholder="Enter Keyword">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
     <c:forEach var="board" items="${boards.content}">
         <div class="card m-2">
             <div class="card-body">

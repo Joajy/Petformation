@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,8 +21,14 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping({"", "/"})
-    public String index(Model model, @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-        model.addAttribute("boards", boardService.boardList(pageable));
+    public String index(Model model, @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+                        @RequestParam(value = "searchKeyword", required = false)String searchKeyword) {
+        if(searchKeyword == null){
+            model.addAttribute("boards", boardService.boardList(pageable));
+        }
+        else{
+            model.addAttribute("boards", boardService.searchResult(searchKeyword, pageable));
+        }
         return "index";
     }
 

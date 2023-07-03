@@ -35,6 +35,11 @@ public class BoardService {
         return boardRepository.findAll(pageable);
     }
 
+    @Transactional(readOnly = true)
+    public Page<Board> searchResult(String searchKeyword, Pageable pageable) {
+        return boardRepository.findByTitleContaining(searchKeyword, pageable);
+    }
+
     @Transactional
     public Board detail(Integer id, HttpServletRequest request, HttpServletResponse response){
         if(request != null) {
