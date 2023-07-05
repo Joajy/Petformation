@@ -35,9 +35,9 @@ public class BoardController {
     }
 
     @GetMapping("/board/{id}")
-    public String detail(@PathVariable Integer id, Model model, HttpServletRequest request, HttpServletResponse response, @AuthenticationPrincipal PrincipalDetail principal) {
-        model.addAttribute("board", boardService.detail(id,request,response, (long) principal.getUser().getId()));
-        boardService.detail(id, request, response, (long) principal.getUser().getId());
+    public String detail(@PathVariable Long id, Model model, HttpServletRequest request, HttpServletResponse response, @AuthenticationPrincipal PrincipalDetail principal) {
+        model.addAttribute("board", boardService.detail(id,request,response, principal.getUser().getId()));
+        boardService.detail(id, request, response, principal.getUser().getId());
         return "board/detail";
     }
 
@@ -47,8 +47,8 @@ public class BoardController {
     }
 
     @GetMapping("/board/{id}/updateForm")
-    public String updateForm(@PathVariable int id, Model model, HttpServletRequest request, HttpServletResponse response, @AuthenticationPrincipal PrincipalDetail principal){
-        model.addAttribute("board", boardService.detail(id, request, response, (long) principal.getUser().getId()));
+    public String updateForm(@PathVariable Long id, Model model, HttpServletRequest request, HttpServletResponse response, @AuthenticationPrincipal PrincipalDetail principal){
+        model.addAttribute("board", boardService.detail(id, request, response, principal.getUser().getId()));
         return "/board/updateForm";
     }
 }

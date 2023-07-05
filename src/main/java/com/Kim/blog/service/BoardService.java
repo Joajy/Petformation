@@ -41,7 +41,7 @@ public class BoardService {
     }
 
     @Transactional
-    public Board detail(Integer id, HttpServletRequest request, HttpServletResponse response, Long principal_id){
+    public Board detail(Long id, HttpServletRequest request, HttpServletResponse response, Long principal_id){
         if(request != null) {
             Cookie[] cookies = request.getCookies();
             Cookie oldCookie = null;
@@ -69,9 +69,9 @@ public class BoardService {
             }
         }
 
-        Board board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("글을 읽어올 수 없습니다.(아이디를 찾을 수 없습니다)"));
+        Board board = boardRepository.findById(id.intValue()).orElseThrow(() -> new IllegalArgumentException("글을 읽어올 수 없습니다.(아이디를 찾을 수 없습니다)"));
         board.getRecommends().forEach((recommend -> {
-            if(recommend.getUser().getId()==principal_id){
+            if(recommend.getUser().getId().equals(principal_id)){
                 board.setRecommend_state(true);
             }
         }));

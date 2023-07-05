@@ -11,7 +11,7 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     @Modifying
     @Query("update Board b set b.count = b.count + 1 where b.id = :id")
-    void updateHit(Integer id);
+    void updateHit(Long id);
 
     Page<Board> findByTitleContaining(String searchKeyword, Pageable pageable);
 }
