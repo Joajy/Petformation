@@ -5,6 +5,7 @@ import com.Kim.blog.dto.ResponseDto;
 import com.Kim.blog.model.Board;
 import com.Kim.blog.model.Reply;
 import com.Kim.blog.service.BoardService;
+import com.Kim.blog.service.RecommendService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class BoardApiController {
 
     private final BoardService boardService;
+    private final RecommendService recommendService;
 
     @PostMapping("/api/board")
     public ResponseDto<Integer> save(@RequestBody Board board, @AuthenticationPrincipal PrincipalDetail principal) {
@@ -47,4 +49,15 @@ public class BoardApiController {
         return new ResponseDto<>(HttpStatus.OK.value(), 1);
     }
 
+    @PostMapping("/api/board/{board_id}/recommend")
+    public ResponseDto<Integer> recommend(@PathVariable("board_id") Long board_id, @AuthenticationPrincipal PrincipalDetail principal) {
+        recommendService.recommend(board_id, (long) principal.getUser().getId());
+        return new ResponseDto<>(HttpStatus.OK.value(), 1);
+    }
+
+    @DeleteMapping("/api/board/{board_id}/recommend")
+    public ResponseDto<Integer> cancelRecommend(@PathVariable("board_id") Long board_id, @AuthenticationPrincipal PrincipalDetail principal) {
+        recommendService.cancelRecommend(board_id, (long) principal.getUser().getId());
+        return new ResponseDto<>(HttpStatus.OK.value(), 1);
+    }
 }

@@ -46,7 +46,16 @@ public class Board {
     @OrderBy("id desc")
     private List<Reply> reply;
 
-    public String getCreateDate(){
+    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
+    private List<Recommend> recommends;
+
+    @Transient
+    private boolean recommend_state;
+
+    @Transient
+    private int recommend_count;
+
+    public String getCreateDate() {
         return new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").format(createDate);
     }
 }
