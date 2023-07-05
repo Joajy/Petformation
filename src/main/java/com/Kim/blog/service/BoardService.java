@@ -69,7 +69,7 @@ public class BoardService {
             }
         }
 
-        Board board = boardRepository.findById(id.intValue()).orElseThrow(() -> new IllegalArgumentException("글을 읽어올 수 없습니다.(아이디를 찾을 수 없습니다)"));
+        Board board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("글을 읽어올 수 없습니다.(아이디를 찾을 수 없습니다)"));
         board.getRecommends().forEach((recommend -> {
             if(recommend.getUser().getId().equals(principal_id)){
                 board.setRecommend_state(true);
@@ -80,12 +80,12 @@ public class BoardService {
     }
 
     @Transactional
-    public void delete(int id){
+    public void delete(Long id){
         boardRepository.deleteById(id);
     }
 
     @Transactional
-    public void update(int id, Board requestBoard) {
+    public void update(Long id, Board requestBoard) {
         Board board = boardRepository.findById(id)
                 .orElseThrow(()-> new IllegalArgumentException("글을 찾을 수 없습니다.(아이디를 찾을 수 없습니다)"));
         board.setTitle(requestBoard.getTitle());
@@ -93,7 +93,7 @@ public class BoardService {
     }
 
     @Transactional
-    public void writeReply(int boardId, Reply requestReply, User user){
+    public void writeReply(Long boardId, Reply requestReply, User user){
         Board board = boardRepository.findById(boardId).orElseThrow(() -> new IllegalArgumentException("댓글 작성 실패: 글을 찾을 수 없습니다."));
         requestReply.setUser(user);
         requestReply.setBoard(board);
@@ -101,7 +101,7 @@ public class BoardService {
     }
 
     @Transactional
-    public void deleteReply(int replyId){
+    public void deleteReply(Long replyId){
         replyRepository.deleteById(replyId);
     }
 }

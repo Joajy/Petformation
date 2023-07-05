@@ -26,38 +26,38 @@ public class BoardApiController {
     }
 
     @DeleteMapping("/api/board/{id}")
-    public ResponseDto<Integer> deleteById(@PathVariable int id) {
+    public ResponseDto<Integer> deleteById(@PathVariable Long id) {
         boardService.delete(id);
         return new ResponseDto<>(HttpStatus.OK.value(), 1);
     }
 
     @PutMapping("/api/board/{id}")
-    public ResponseDto<Integer> update(@PathVariable int id, @RequestBody Board board) {
+    public ResponseDto<Integer> update(@PathVariable Long id, @RequestBody Board board) {
         boardService.update(id, board);
         return new ResponseDto<>(HttpStatus.OK.value(), 1);
     }
 
     @PostMapping("/api/board/{boardId}/reply")
-    public ResponseDto<Integer> saveReply(@PathVariable int boardId, @RequestBody Reply reply, @AuthenticationPrincipal PrincipalDetail principal) {
+    public ResponseDto<Integer> saveReply(@PathVariable Long boardId, @RequestBody Reply reply, @AuthenticationPrincipal PrincipalDetail principal) {
         boardService.writeReply(boardId, reply, principal.getUser());
         return new ResponseDto<>(HttpStatus.OK.value(), 1);
     }
 
     @DeleteMapping("/api/board/{boardId}/reply/{replyId}")
-    public ResponseDto<Integer> deleteReply(@PathVariable int replyId) {
+    public ResponseDto<Integer> deleteReply(@PathVariable Long replyId) {
         boardService.deleteReply(replyId);
         return new ResponseDto<>(HttpStatus.OK.value(), 1);
     }
 
     @PostMapping("/api/board/{board_id}/recommend")
     public ResponseDto<Integer> recommend(@PathVariable("board_id") Long board_id, @AuthenticationPrincipal PrincipalDetail principal) {
-        recommendService.recommend(board_id, (long) principal.getUser().getId());
+        recommendService.recommend(board_id, principal.getUser().getId());
         return new ResponseDto<>(HttpStatus.OK.value(), 1);
     }
 
     @DeleteMapping("/api/board/{board_id}/recommend")
     public ResponseDto<Integer> cancelRecommend(@PathVariable("board_id") Long board_id, @AuthenticationPrincipal PrincipalDetail principal) {
-        recommendService.cancelRecommend(board_id, (long) principal.getUser().getId());
+        recommendService.cancelRecommend(board_id, principal.getUser().getId());
         return new ResponseDto<>(HttpStatus.OK.value(), 1);
     }
 }
