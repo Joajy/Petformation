@@ -8,6 +8,7 @@
     * CRUD Post
     * Post, Delete Comment
     * Remember Me by using Cookie
+    * Post Recommend
  * Use What
      * Java(Ver 11)
      * Spring
@@ -28,13 +29,17 @@
   * CRUD of Board's Post
   * OAuth 2.0 for Spring Security
   * Post & Delete Comment
+  * Remember Me by using Cookie
+  * Post Recommend
 
 ### :notebook_with_decorative_cover: About Board
   * CRUD Board's post(can only Writer of the post)
+  * Add Comment operation
+  * Can Recommend by pressing the button
 <br/>
 
 ### :orange_book: About User 
-  * Can Sign in with General(only in our Site) or OAuth 2.0
+  * Can Sign in with General(in our Site) or OAuth 2.0
   * Use validation to Sign up
 
 <br/>
