@@ -76,6 +76,10 @@ public class BoardService {
             }
         }));
         board.setRecommendCount(board.getRecommend().size());
+
+        board.setPrevBoard(boardRepository.findPrevBoard(id));
+        board.setNextBoard(boardRepository.findNextBoard(id));
+
         return board;
     }
 

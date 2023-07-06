@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<%@ include file="../layout/header.jsp"%>
+<%@ include file="../layout/header.jsp" %>
 
 <div class="container">
     <button class="btn btn-secondary" onclick="history.back()">Back</button>
@@ -24,12 +24,14 @@
                 <div style="text-align: center;">
                     <c:choose>
                         <c:when test="${board.user.id != principal.user.id}">
-                            <button onClick="index.recommend(${board.id}, ${board.recommendState})" class="btn btn-success" style="display: inline-block;">
+                            <button onClick="index.recommend(${board.id}, ${board.recommendState})"
+                                    class="btn btn-success" style="display: inline-block;">
                                 추천 <span>${board.recommendCount}</span>
                             </button>
                         </c:when>
                         <c:otherwise>
-                            <button onClick="index.recommend(${board.id}, ${board.recommendState})" class="btn btn-success" style="display: inline-block;" disabled>
+                            <button onClick="index.recommend(${board.id}, ${board.recommendState})"
+                                    class="btn btn-success" style="display: inline-block;" disabled>
                                 추천 <span>${board.recommendCount}</span>
                             </button>
                         </c:otherwise>
@@ -40,12 +42,14 @@
                 <div style="text-align: center;">
                     <c:choose>
                         <c:when test="${board.user.id != principal.user.id}">
-                            <button onClick="index.recommend(${board.id}, ${board.recommendState})" class="btn btn-outline-success" style="display: inline-block;">
+                            <button onClick="index.recommend(${board.id}, ${board.recommendState})"
+                                    class="btn btn-outline-success" style="display: inline-block;">
                                 추천 <span>${board.recommendCount}</span>
                             </button>
                         </c:when>
                         <c:otherwise>
-                            <button onClick="index.recommend(${board.id}, ${board.recommendState})" class="btn btn-outline-success" style="display: inline-block;" disabled>
+                            <button onClick="index.recommend(${board.id}, ${board.recommendState})"
+                                    class="btn btn-outline-success" style="display: inline-block;" disabled>
                                 추천 <span>${board.recommendCount}</span>
                             </button>
                         </c:otherwise>
@@ -75,7 +79,8 @@
                 <li id="reply-${reply.id}" class="list-group-item d-flex justify-content-between">
                     <div>${reply.content}</div>
                     <div class="d-flex">
-                        <div class="font-italic">User: ${reply.user.username} &nbsp</div><br/>
+                        <div class="font-italic">User: ${reply.user.username} &nbsp</div>
+                        <br/>
                         <span style="float:right">${board.createDate} &nbsp</span><br/>
                         <c:if test="${reply.user.username==principal.user.username}">
                             <button onclick="index.deleteReply(${board.id}, ${reply.id})" class="badge">Delete</button>
@@ -85,10 +90,36 @@
             </c:forEach>
         </ul>
     </div>
-
+    <br/>
+    <div class="list-group">
+        <a href="/board/${board.nextBoard.id}?page=${param.page}&searchKeyword=${param.searchKeyword}"
+           class="list-group-item list-group-item-action <c:if test="${empty board.nextBoard}">disabled</c:if>">
+            <span style="font-weight: bold;">Next</span> |
+             <c:choose>
+                <c:when test="${empty board.nextBoard}">
+                    There is no Next Post.
+                </c:when>
+                <c:otherwise>
+                    <span style="color: dodgerblue;">${board.nextBoard.title}</span>
+                </c:otherwise>
+            </c:choose>
+        </a>
+        <a href="/board/${board.prevBoard.id}?page=${param.page}&searchKeyword=${param.searchKeyword}"
+           class="list-group-item list-group-item-action <c:if test="${empty board.prevBoard}">disabled</c:if>">
+            <span style="font-weight: bold;">Previous</span> |
+            <c:choose>
+                <c:when test="${empty board.prevBoard}">
+                    There is no previous Post.
+                </c:when>
+            <c:otherwise>
+                <span style="color: dodgerblue;">${board.prevBoard.title}</span>
+            </c:otherwise>
+        </c:choose>
+        </a>
+    </div>
 
 
 </div>
 
 <script src="/js/board.js"></script>
-<%@ include file="../layout/footer.jsp"%>
+<%@ include file="../layout/footer.jsp" %>

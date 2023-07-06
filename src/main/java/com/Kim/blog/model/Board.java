@@ -53,6 +53,12 @@ public class Board {
 
     private int recommendCount;
 
+    @Transient
+    private Board prevBoard;
+
+    @Transient
+    private Board nextBoard;
+
     public String getCreateDate() {
         return new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").format(createDate);
     }
