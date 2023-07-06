@@ -12,7 +12,7 @@
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="/?page=${param.page}&sort=id,DESC&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}">Newest</a>
                 <a class="dropdown-item" href="/?page=${param.page}&sort=count,DESC&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}">Popularity</a>
-                <a class="dropdown-item" href="/?page=${param.page}&sort=recommend,DESC&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}">Recommendation</a>
+                <a class="dropdown-item" href="/?page=${param.page}&sort=recommendCount,DESC&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}">Recommendation</a>
             </div>
             <input type="text" name="searchKeyword" class="form-control" placeholder="Enter Keyword">
             <button type="submit" class="btn btn-primary">Search</button>

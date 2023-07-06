@@ -49,9 +49,9 @@ public class Board {
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     private List<Recommend> recommend;
 
-    private boolean recommend_state;
+    private boolean recommendState;
 
-    private int recommend_count;
+    private int recommendCount;
 
     public String getCreateDate() {
         return new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").format(createDate);

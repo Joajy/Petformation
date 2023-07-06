@@ -72,10 +72,10 @@ public class BoardService {
         Board board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("글을 읽어올 수 없습니다.(아이디를 찾을 수 없습니다)"));
         board.getRecommend().forEach((recommend -> {
             if(recommend.getUser().getId().equals(principal_id)){
-                board.setRecommend_state(true);
+                board.setRecommendState(true);
             }
         }));
-        board.setRecommend_count(board.getRecommend().size());
+        board.setRecommendCount(board.getRecommend().size());
         return board;
     }
 

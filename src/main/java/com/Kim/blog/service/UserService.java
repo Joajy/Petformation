@@ -128,7 +128,7 @@ public class UserService {
         //Access Token for request user profile
         RestTemplate profileRestTemplate = new RestTemplate();
         HttpHeaders profileHeaders = new HttpHeaders();
-        profileHeaders.add("Authorization", "Bearer " + oAuthToken.getAccess_token());
+        profileHeaders.add("Authorization", "Bearer " + oAuthToken.getAccessToken());
         profileHeaders.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
         HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest

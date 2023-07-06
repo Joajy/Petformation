@@ -19,11 +19,11 @@ public class KakaoProfile {
     public static class KakaoAccount {
         public Profile profile;
         public String email;
-        public Boolean profile_nickname_needs_agreement;
-        public Boolean has_email;
-        public Boolean email_needs_agreement;
-        public Boolean is_email_valid;
-        public Boolean is_email_verified;
+        public Boolean profileNicknameNeedsAgreement;
+        public Boolean hasEmail;
+        public Boolean emailNeedsAgreement;
+        public Boolean isEmailValid;
+        public Boolean isEmailVerified;
 
         @Data
         public static class Profile {

@@ -16,10 +16,10 @@ public interface RecommendRepository extends JpaRepository<Recommend, Long> {
     void cancelRecommend(Long board_id, Long principal_id);
 
     @Modifying
-    @Query(value = "UPDATE Board b set b.recommend_count = b.recommend_count + 1 where b.id =:board_id")
+    @Query(value = "UPDATE Board b set b.recommendCount = b.recommendCount + 1 where b.id =:board_id")
     void ascRecommendCount(Long board_id);
 
     @Modifying
-    @Query(value = "UPDATE Board b set b.recommend_count = b.recommend_count - 1 where b.id =:board_id")
+    @Query(value = "UPDATE Board b set b.recommendCount = b.recommendCount - 1 where b.id =:board_id")
     void descRecommendCount(Long board_id);
 }
