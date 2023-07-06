@@ -65,17 +65,10 @@ public class UserService {
 
     @Transactional
     public void update(UserRequestDto userDto) {
-        User persistence = userRepository.findByUsername(userDto.getUsername()).orElseThrow(() -> new IllegalArgumentException("해당하는 회원정보가 없습니다."));
+        User persistence = userRepository.findByUsername(userDto.getUsername()).orElseThrow(() -> new IllegalArgumentException("회원정보를 수정할 수 없습니다."));
 
-        //Check Validation
-        //if oAuth field has no value, can change email & password of that account
-        String oAuth = persistence.getOauth();
-        if(oAuth == null || oAuth.equals("")) {
-            String rawPassword = userDto.getPassword();
-            String encPassword = encoder.encode(rawPassword);
-            persistence.setPassword(encPassword);
-            persistence.setEmail(userDto.getEmail());
-        }
+        persistence.setPassword(encoder.encode(userDto.getPassword()));
+
     }
 
     @Transactional(readOnly = true)
