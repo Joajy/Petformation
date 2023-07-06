@@ -30,9 +30,9 @@ public class Board {
     @Lob                //대용량 데이터 처리 대비
     private String content;
 
-    @Column(columnDefinition = "integer default 0", nullable = false)
     private int count;
 
+    @JsonIgnoreProperties({"board", "reply"})
     @ManyToOne      //Board : User == Many : One
     @JoinColumn(name = "user_id")
     private User user;
@@ -42,17 +42,15 @@ public class Board {
 
     //mappedBy 연관관계의 주인이 아님을 표시 -> 외래키가 아님
     @OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    @JsonIgnoreProperties("{board}")
+    @JsonIgnoreProperties({"board", "user"})
     @OrderBy("id desc")
     private List<Reply> reply;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
-    private List<Recommend> recommends;
+    private List<Recommend> recommend;
 
-    @Transient
     private boolean recommend_state;
 
-    @Transient
     private int recommend_count;
 
     public String getCreateDate() {

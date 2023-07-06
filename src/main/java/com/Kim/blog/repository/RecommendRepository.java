@@ -9,9 +9,17 @@ public interface RecommendRepository extends JpaRepository<Recommend, Long> {
 
     @Modifying
     @Query(value = "INSERT INTO recommend(board_id, user_id) VALUES(:board_id, :principal_id)", nativeQuery = true)
-    int recommend(Long board_id, Long principal_id);
+    void recommend(Long board_id, Long principal_id);
 
     @Modifying
-    @Query(value = "Delete FROM recommend WHERE board_id = :board_id AND user_id = :principal_id", nativeQuery = true)
-    int cancelRecommend(Long board_id, Long principal_id);
+    @Query(value = "DELETE FROM recommend WHERE board_id = :board_id AND user_id = :principal_id", nativeQuery = true)
+    void cancelRecommend(Long board_id, Long principal_id);
+
+    @Modifying
+    @Query(value = "UPDATE Board b set b.recommend_count = b.recommend_count + 1 where b.id =:board_id")
+    void ascRecommendCount(Long board_id);
+
+    @Modifying
+    @Query(value = "UPDATE Board b set b.recommend_count = b.recommend_count - 1 where b.id =:board_id")
+    void descRecommendCount(Long board_id);
 }
