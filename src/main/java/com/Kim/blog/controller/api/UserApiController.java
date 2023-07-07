@@ -3,6 +3,9 @@ package com.Kim.blog.controller.api;
 import com.Kim.blog.dto.ResponseDto;
 import com.Kim.blog.dto.UserRequestDto;
 import com.Kim.blog.service.UserService;
+import com.Kim.blog.validator.CheckEmailValidator;
+import com.Kim.blog.validator.CheckNicknameValidator;
+import com.Kim.blog.validator.CheckUsernameValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,10 +13,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Map;
@@ -24,6 +25,17 @@ public class UserApiController {
 
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
+
+    private final CheckUsernameValidator checkUsernameValidator;
+    private final CheckNicknameValidator checkNicknameValidator;
+    private final CheckEmailValidator checkEmailValidator;
+
+    @InitBinder
+    public void validatorBinder(WebDataBinder binder) {
+        binder.addValidators(checkUsernameValidator);
+        binder.addValidators(checkNicknameValidator);
+        binder.addValidators(checkEmailValidator);
+    }
 
 //    @PostMapping("/auth/joinProc")
 //    public ResponseDto<Integer> save(@RequestBody User user) {
