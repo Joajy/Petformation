@@ -62,7 +62,6 @@ let index = {
 
     update: function () {
         let data = {
-            id: $("#id").val(),
             username: $("#username").val(),
             password: $("#password").val(),
             nickname: $("#nickname").val()
@@ -74,12 +73,12 @@ let index = {
         }
 
         if(!/(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\W)(?=\S+$).{8,16}/.test(data.password)) {
-            $("#valid_password").text("비밀번호는 8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.");
+            $("#valid_password").text("비밀번호는 8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.").css('color', 'red');
             $('#password').focus();
             return false;
         }
         if(!/^[ㄱ-ㅎ가-힣a-z0-9-_]{2,10}$/.test(data.nickname)) {
-            $("#valid_nickname").text("닉네임은 특수문자를 제외한 2~10자리여야 합니다.");
+            $("#valid_nickname").text("닉네임은 특수문자를 제외한 2~10자리여야 합니다.").css('color', 'red');
             $('#nickname').focus();
             return false;
         }
@@ -92,7 +91,7 @@ let index = {
             dataType: "json"
         }).done(function (resp) {
             if(resp.status === 500) {
-                $("#valid_nickname").text("이미 사용중인 닉네임입니다.");
+                $("#valid_nickname").text("이미 사용중인 닉네임입니다.").css('color', 'red');
                 $("#nickname").focus();
                 return false;
             }

@@ -18,6 +18,11 @@
         </div>
         <p id="valid_password"></p>
         <div class="form-group">
+            <label for="nickname">Nickname</label>
+            <input type="nickname" class="form-control" id="nickname" placeholder="Enter nickname">
+        </div>
+        <p id="valid_nickname"></p>
+        <div class="form-group">
             <label for="email">Email</label>
             <input type="email" class="form-control" id="email" placeholder="Enter email">
         </div>

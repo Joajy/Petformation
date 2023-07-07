@@ -27,9 +27,14 @@ public class BoardController {
     @GetMapping({"", "/"})
     public String index(Model model,
                         @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+                        @RequestParam(value = "searchType", defaultValue = "") String searchType,
                         @RequestParam(value = "searchKeyword", defaultValue = "") String searchKeyword) {
-        if(searchKeyword == null || searchKeyword.isBlank()){
+        if(searchKeyword.isEmpty() || searchKeyword.isBlank()){
             model.addAttribute("boards", boardRepository.findAll(pageable));
+        }
+
+        if(searchType.equals("nickname")) {
+            model.addAttribute("boards", boardRepository.findByUserNicknameContaining(searchKeyword, pageable));
         }
         else {
             model.addAttribute("boards", boardRepository.findByTitleContaining(searchKeyword, pageable));

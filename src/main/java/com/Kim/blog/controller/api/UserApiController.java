@@ -66,11 +66,7 @@ public class UserApiController {
 //    }
 
     @PutMapping("/user")
-    public ResponseDto<?> update(@Valid @RequestBody UserRequestDto userDto, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
-            Map<String, String> validatorResult = userService.validateHandling(bindingResult);
-            return new ResponseDto<>(HttpStatus.BAD_REQUEST.value(), validatorResult);
-        }
+    public ResponseDto<?> update(@Valid @RequestBody UserRequestDto userDto) {
         userService.update(userDto);
 
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userDto.getUsername(), userDto.getPassword()));

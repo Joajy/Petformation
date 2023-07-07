@@ -19,6 +19,11 @@
             </div>
             <p id="valid_password"></p>
             <div class="form-group">
+                <label for="nickname">Nickname</label>
+                <input type="text" value="${principal.user.nickname}" class="form-control" id="nickname" placeholder="Enter nickname">
+            </div>
+            <p id="valid_nickname"></p>
+            <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" value="${principal.user.email}" class="form-control" id="email" placeholder="Enter email" readonly>
             </div>

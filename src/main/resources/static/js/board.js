@@ -158,3 +158,7 @@ let index = {
 };
 
 index.init();
+
+function selectSearchType() {
+    $("#searchType").val($("#select option:selected").val())
+}

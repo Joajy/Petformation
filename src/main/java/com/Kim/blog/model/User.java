@@ -32,6 +32,9 @@ public class User {
     @Enumerated(EnumType.STRING)
     private RoleType role;
 
+    @Column(nullable = false, length = 10, unique = true)
+    private String nickname;
+    
     @CreationTimestamp
     private Timestamp createDate;
 

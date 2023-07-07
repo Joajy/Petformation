@@ -37,6 +37,8 @@ public class Board {
     @JoinColumn(name = "user_id")
     private User user;
 
+    private String userNickname;
+
     @CreationTimestamp
     private Timestamp createDate;
 

@@ -55,9 +55,10 @@ public class UserService {
     @Transactional
     public void save(UserRequestDto userDto) {
         User user = User.builder()
-                .username((userDto.getUsername()))
+                .username(userDto.getUsername())
                 .password(encoder.encode(userDto.getPassword()))
                 .email(userDto.getEmail())
+                .nickname(userDto.getNickname())
                 .role(RoleType.USER)
                 .build();
         userRepository.save(user);
@@ -68,7 +69,7 @@ public class UserService {
         User persistence = userRepository.findByUsername(userDto.getUsername()).orElseThrow(() -> new IllegalArgumentException("회원정보를 수정할 수 없습니다."));
 
         persistence.setPassword(encoder.encode(userDto.getPassword()));
-
+        persistence.setNickname(userDto.getNickname());
     }
 
     @Transactional(readOnly = true)
@@ -146,6 +147,7 @@ public class UserService {
                 .password(blueStarKey)
                 .email(kakaoProfile.getKakao_account().getEmail())
                 .role(RoleType.USER)
+                .nickname(kakaoProfile.getProperties().getNickname())
                 .oauth("kakao")
                 .build();
 
