@@ -77,9 +77,10 @@ public class UserService {
         Map<String, String> validatorResult = new HashMap<>();
 
         for (FieldError error : bindingResult.getFieldErrors()) {
-            String format = String.format("valid_%s", error.getField());
-            validatorResult.put(format, error.getDefaultMessage());
+            String validKeyName = String.format("valid_%s", error.getField());
+            validatorResult.put(validKeyName, error.getDefaultMessage());
         }
+
         return validatorResult;
     }
 
