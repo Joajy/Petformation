@@ -30,6 +30,7 @@ public class UserApiController {
     private final CheckNicknameValidator checkNicknameValidator;
     private final CheckEmailValidator checkEmailValidator;
 
+    //요청이 들어오기 전에 미리 선언된 메서드 실행
     @InitBinder
     public void validatorBinder(WebDataBinder binder) {
         binder.addValidators(checkUsernameValidator);
@@ -66,7 +67,7 @@ public class UserApiController {
 //    }
 
     @PutMapping("/user")
-    public ResponseDto<?> update(@Valid @RequestBody UserRequestDto userDto) {
+    public ResponseDto<?> update(@RequestBody UserRequestDto userDto) {
         userService.update(userDto);
 
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userDto.getUsername(), userDto.getPassword()));
