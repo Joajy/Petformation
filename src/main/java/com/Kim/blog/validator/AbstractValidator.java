@@ -6,8 +6,9 @@ import org.springframework.validation.Validator;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public abstract class AbstractValidator<T> implements Validator {@Override
-public boolean supports(Class<?> clazz) {
+public abstract class AbstractValidator<T> implements Validator {
+    @Override
+    public boolean supports(Class<?> clazz) {
     return true;
 }
 
