@@ -18,6 +18,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <link href="/css/header.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
@@ -42,9 +43,6 @@
             <%--principal이 not empty인 경우 글쓰기, 회원정보 및 로그아웃 링크를 navbar에 표시--%>
             <c:otherwise>
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/board/saveForm">Post</a>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/user/updateForm">Profile</a>
                     </li>
@@ -76,10 +74,10 @@
                     >
                         <span style="float: right;">${alarm.createDate}</span>
                         <span>
-                        <div class="alarm-content"><span class="alarm-username">${alarm.user.nickname}</span><span> left comment.</span></div>
-                        <div class="alarm-content">${alarm.content}</div>
-                        <div class="alarm-content alarm-title">${alarm.board.title}</div>
-                    </span>
+								<div class="alarm-content"><span class="alarm-username">${alarm.user.nickname}</span><span>님이 댓글을 남겼습니다.</span></div>
+								<div class="alarm-content">${alarm.content}</div>
+								<div class="alarm-content alarm-title">${alarm.board.title}</div>
+							</span>
                     </div>
                 </c:forEach>
             </div>
