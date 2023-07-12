@@ -102,6 +102,7 @@ public class BoardService {
         Board board = boardRepository.findById(boardId).orElseThrow(() -> new IllegalArgumentException("댓글 작성 실패: 글을 찾을 수 없습니다."));
         requestReply.setUser(user);
         requestReply.setBoard(board);
+        requestReply.setAlarmConfirmState(false);
         replyRepository.save(requestReply);
     }
 

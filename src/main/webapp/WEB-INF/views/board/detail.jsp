@@ -3,6 +3,7 @@
 <%@ include file="../layout/header.jsp" %>
 
 <div class="container">
+    <input type="hidden" id="board_id" name="board_id" value="${board.id}"/>
     <button class="btn btn-secondary" onclick="history.back()">Back</button>
     <c:if test="${board.user.id == principal.user.id}">
         <a href="/board/${board.id}/updateForm" class="btn btn-warning">Edit</a>
@@ -99,7 +100,7 @@
     </div>
     <br/>
     <div class="card">
-        <div class="card-header">Comment List</div>
+        <div class="card-header">Comments</div>
         <ul id="comment-box" class="list-group">
             <c:forEach var="reply" items="${board.reply}">
                 <li id="reply-${reply.id}" class="list-group-item d-flex justify-content-between">

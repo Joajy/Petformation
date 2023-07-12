@@ -1,3 +1,4 @@
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <%@ include file="layout/header.jsp"%>
@@ -19,6 +20,9 @@
         </div>
     </form>
     <c:forEach var="board" items="${boards.content}">
+        <c:set var="user" value="[${Integer.toString(principal.user.id)}]" />
+        <tbody style="<c:if test='${fn:contains(board.seen, user)}'>color: gray;</c:if>">
+
         <div class="card m-2">
             <div class="card-body">
                 <h4 class="card-title">${board.title}</h4>
@@ -27,6 +31,8 @@
                 <span style="float:right">Created: ${board.createDate}</span><br/>
             </div>
         </div>
+
+        </tbody>
     </c:forEach>
     <ul class="pagination justify-content-center">
         <c:choose>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <sec:authorize access="isAuthenticated()">
     <sec:authentication property="principal" var="principal"/>
 </sec:authorize>
@@ -53,5 +54,36 @@
             </c:otherwise>
         </c:choose>
     </div>
+    <c:if test="${fn:length(alarms) > 0}">
+        <div class="dropdown">
+            <div style="color: white; position:relative;" class="btn dropdown" data-toggle="dropdown">
+                <i class="fa-solid fa-bell"></i>
+                <c:set var="alarm_count" value="0" />
+                <c:forEach var="alarm" items="${alarms}">
+                    <c:if test="${!alarm.alarmConfirmState}">
+                        <c:set var="alarm_count" value="${alarm_count + 1}" />
+                    </c:if>
+                </c:forEach>
+                <c:if test="${alarm_count > 0}">
+                    <span class="nav-counter">${alarm_count}</span>
+                </c:if>
+            </div>
+            <div class="dropdown-menu dropdown-menu-right alarm-box">
+                <span class="alarm-new">새소식&nbsp;&nbsp;</span><span class="alarm-count">${alarm_count}</span>
+                <c:forEach var="alarm" items="${alarms}">
+                    <div class="dropdown-item alarm" onclick="alarmConfirm(${alarm.id}, ${alarm.board.id})"
+                         <c:if test="${alarm.alarmConfirmState}">, style="background-color: whiteSmoke;"</c:if>
+                    >
+                        <span style="float: right;">${alarm.createDate}</span>
+                        <span>
+                        <div class="alarm-content"><span class="alarm-username">${alarm.user.nickname}</span><span> left comment.</span></div>
+                        <div class="alarm-content">${alarm.content}</div>
+                        <div class="alarm-content alarm-title">${alarm.board.title}</div>
+                    </span>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+    </c:if>
 </nav>
 <br>

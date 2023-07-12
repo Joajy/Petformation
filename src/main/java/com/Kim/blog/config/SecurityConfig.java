@@ -2,6 +2,7 @@ package com.Kim.blog.config;
 
 //import com.Kim.blog.config.auth.PrincipalDetailService;
 import com.Kim.blog.config.auth.PrincipalDetailService;
+import com.Kim.blog.interceptor.NotificationInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +14,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 //Bean 등록으로 스프링 컨테이너에서 객체 관리
 /*@Configuration //Bean 등록
@@ -59,10 +62,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 @EnableWebSecurity  //Add Security Filter
 @EnableGlobalMethodSecurity(prePostEnabled = true)  //특정 url 접근 시 권한 및 인증 확인
 @RequiredArgsConstructor
-public class SecurityConfig {
+public class SecurityConfig implements WebMvcConfigurer {
 
     private final PrincipalDetailService principalDetailService;
     private final AuthenticationFailureHandler userLoginFailHandler;
+    private final NotificationInterceptor notificationInterceptor;
 
     @Bean
     public BCryptPasswordEncoder encodePWD(){
@@ -98,5 +102,10 @@ public class SecurityConfig {
                     .defaultSuccessUrl("/")
                 .and()
                     .build();
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(notificationInterceptor).excludePathPatterns("/js/**", "/css/**", "/image/**");
     }
 }
