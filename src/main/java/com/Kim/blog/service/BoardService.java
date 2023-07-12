@@ -76,6 +76,14 @@ public class BoardService {
                 board.setRecommendState(true);
             }
         }));
+
+        if(board.getSeen() == null){
+            board.setSeen("[" + principal_id.toString() + "]");
+        }
+        else{
+            board.setSeen(board.getSeen() + "[" + principal_id.toString() + "]");
+        }
+
         board.setRecommendCount(board.getRecommend().size());
 
         board.setPrevBoard(boardRepository.findPrevBoard(id));

@@ -61,6 +61,8 @@ public class Board {
     @Transient
     private Board nextBoard;
 
+    private String seen;
+
     public String getCreateDate() {
         return new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").format(createDate);
     }
