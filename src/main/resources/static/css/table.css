@@ -1,0 +1,42 @@
+@charset "UTF-8";
+
+thead th {
+    color: #000000;
+    text-align: center;
+}
+
+tbody th {
+    color: #a8a8a8;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+}
+
+.board-table {
+    table-layout: fixed;
+    margin-top: 10px;
+}
+
+.board-table-no {
+    width: 100px;
+}
+
+.board-table-title {
+    text-align: left;
+}
+
+.board-table-writer {
+    width: 100px;
+}
+
+.board-table-date {
+    width: 150px;
+}
+
+.board-table-view {
+    width: 100px;
+}
+
+.board-table-recommend {
+    width: 100px;
+}

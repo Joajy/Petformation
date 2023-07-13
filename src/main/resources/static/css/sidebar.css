@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+#sidebar {
+    display: table-cell;
+    width: 17%;
+    vertical-align: top;
+    height: 200px;
+}
+
+.profile {
+    width: 100px;
+    height: 100px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.category-ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.category-li {
+    text-align: left;
+    border-bottom: 1px solid #efefef;
+    font-size: 15px;
+    padding: 10px;
+    padding-left: 20px;
+    cursor: pointer;
+    transition: background 0.5s ease-in-out;
+}
+
+.category-li:last-child {
+    border: none;
+}
+
+.category-li:hover {
+    background: #e0e0e0;
+}

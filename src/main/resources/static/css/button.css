@@ -1,0 +1,102 @@
+@charset "UTF-8";
+
+.btn {
+    width: 120px;
+    height: 40px;
+    color: #fff;
+    background: #2ee4ad;
+    border: none;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+.btn-sort {
+    border-radius: 5px;
+    width: 100px;
+}
+
+.btn-search {
+    width: 80px;
+}
+
+.btn-write {
+    width: 100px;
+}
+
+.btn-login {
+    width: 100px;
+}
+
+.btn-update {
+    width: 80px;
+}
+
+.btn-alarm {
+    width: 40px;
+    height: 35px;
+}
+
+.btn-list {
+    border-radius: 5px;
+    width: 80px;
+}
+
+.btn-comment {
+    border-radius: 5px;
+    width: 80px;
+}
+
+.btn-recommend {
+    border-radius: 5px;
+    width: 100px;
+}
+
+.btn-outline-recommend {
+    border-radius: 5px;
+    width: 100px;
+    color: #2ee4ad;
+    background: #fff;
+    border: 1px solid #2ee4ad;
+}
+
+.btn-retouch {
+    border-radius: 5px;
+    width: 80px;
+}
+
+.btn-delete {
+    border-radius: 5px;
+    width: 80px;
+}
+
+.btn:focus {
+    outline: 0;
+}
+
+.btn:hover {
+    color: #fff;
+    background: rgba(46, 228, 173, 0.9);
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(46, 228, 173, 0.6);
+}
+
+.page-link {
+    color: #a8a8a8;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    font-weight: 600;
+}
+
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    font-weight:bold;
+    background-color: #2ee4ad;
+    border-color: #ccc;
+}
+
+.page-link:focus, .page-link:hover {
+    color: #a8a8a8;
+    background-color: #fafafa;
+    border-color: #ccc;
+}
