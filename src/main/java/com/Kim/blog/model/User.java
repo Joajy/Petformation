@@ -43,6 +43,8 @@ public class User {
 
     private String oauth;
 
+    private String profileImageUrl;
+
     @JsonIgnoreProperties({"user"})
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Board> boards = new ArrayList<>();

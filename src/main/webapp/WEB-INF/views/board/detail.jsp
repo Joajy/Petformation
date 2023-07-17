@@ -4,11 +4,22 @@
 
 <div class="container">
     <input type="hidden" id="board_id" name="board_id" value="${board.id}"/>
-    <button class="btn btn-secondary" onclick="history.back()">Back</button>
+    <button class="btn btn-secondary" onclick="location.href='/?page=${page}&sort=${sort}&searchType=${searchType}&searchKeyword=${searchKeyword}'"><i class="fa-solid fa-list"></i> List</button>
     <c:if test="${board.user.id == principal.user.id}">
         <a href="/board/${board.id}/updateForm" class="btn btn-warning">Edit</a>
         <button id="btn-delete" class="btn btn-danger">Delete</button>
     </c:if>
+
+    <div class="d-flex justify-content-between">
+        <span><img class="rounded-circle" src="/upload/${board.user.profileImageUrl}" onerror="this.src='/image/profile.jpg'" width="30" height="30"> ${board.user.nickname}</span><br>
+        <span>
+			<i class="fa-solid fa-calendar-days"></i> ${board.createDate} &nbsp;&nbsp;
+			<i class="fa-solid fa-eye"></i> ${board.count} &nbsp;&nbsp;
+			<i class="fa-solid fa-thumbs-up"></i> ${board.recommendCount}
+		</span>
+    </div>
+    <hr>
+
     <br/><br/>
     <div class="form-group">
         <h3>${board.title}</h3>
@@ -106,7 +117,16 @@
                 <li id="reply-${reply.id}" class="list-group-item d-flex justify-content-between">
                     <div>${reply.content}</div>
                     <div class="d-flex">
-                        <div class="font-italic">User: ${reply.user.username} &nbsp</div>
+                        <p style="font-weight: bold;">
+                            <c:choose>
+                                <c:when test="${not empty reply.user.profileImageUrl}">
+                                    <img class="rounded-circle" src="/upload/${board.user.profileImageUrl}" onerror="this.src='/image/profile.jpg'" width="30" height="30">
+                                </c:when>
+                                <c:otherwise>
+                                    <img class="rounded-circle" src="/image/profile.jpg" width="30" height="30">
+                                </c:otherwise>
+                            </c:choose>
+                            &nbsp;${reply.user.nickname}</p>&nbsp;
                         <br/>
                         <span style="float:right">${board.createDate} &nbsp</span><br/>
                         <c:if test="${reply.user.username==principal.user.username}">

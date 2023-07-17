@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.Map;
@@ -72,6 +73,13 @@ public class UserApiController {
 
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userDto.getUsername(), userDto.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
+        return new ResponseDto<>(HttpStatus.OK.value(), 1);
+    }
+
+    @PutMapping("/api/user/{user_id}/profileImageUrl")
+    public ResponseDto<?> profileImageUpdate(@PathVariable Long user_id, MultipartFile profileImageFile) {
+        userService.profileImageUpdate(user_id, profileImageFile);
+
         return new ResponseDto<>(HttpStatus.OK.value(), 1);
     }
 }

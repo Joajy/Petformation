@@ -4,6 +4,7 @@ package com.Kim.blog.config;
 import com.Kim.blog.config.auth.PrincipalDetailService;
 import com.Kim.blog.interceptor.NotificationInterceptor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,7 +16,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.resource.PathResourceResolver;
 
 //Bean 등록으로 스프링 컨테이너에서 객체 관리
 /*@Configuration //Bean 등록
@@ -68,6 +71,9 @@ public class SecurityConfig implements WebMvcConfigurer {
     private final AuthenticationFailureHandler userLoginFailHandler;
     private final NotificationInterceptor notificationInterceptor;
 
+    @Value("${file.path}")
+    private String uploadFolder;
+
     @Bean
     public BCryptPasswordEncoder encodePWD(){
         return new BCryptPasswordEncoder();
@@ -107,5 +113,17 @@ public class SecurityConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(notificationInterceptor).excludePathPatterns("/js/**", "/css/**", "/image/**");
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        WebMvcConfigurer.super.addResourceHandlers(registry);
+
+        registry
+                .addResourceHandler("/upload/**")	//jsp 페이지에서 '/upload/**'와 같은 주소 패턴이 요청되면 실행
+                .addResourceLocations("file:///" + uploadFolder)
+                .setCachePeriod(60 * 10 * 6)	//1시간
+                .resourceChain(true)
+                .addResolver(new PathResourceResolver());
     }
 }

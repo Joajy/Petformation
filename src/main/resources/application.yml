@@ -34,5 +34,14 @@ spring:
   jackson:
     serialization:
       fail-on-empty-beans: false
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 2MB
+
 BlueStar:
   key: bluestar1@
+
+file:
+  path: D:/workspace/springboot/upload/
