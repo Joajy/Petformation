@@ -12,7 +12,8 @@
             <input type="text" name="username" class="form-control" id="username" placeholder="Enter username">
         </div>
         <div class="form-group">
-            <label for="password">Password</label>
+            <label for="password">Password</label>&emsp;
+            <a href="/auth/findForm">Forgot password?</a>
             <input type="password" name="password" class="form-control" id="password" placeholder="Enter password">
         </div>
         <div class="form-group form-check">

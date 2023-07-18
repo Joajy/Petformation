@@ -1,7 +1,9 @@
 package com.Kim.blog.controller.api;
 
 import com.Kim.blog.dto.ResponseDto;
+import com.Kim.blog.dto.SendTempPwdDto;
 import com.Kim.blog.dto.UserRequestDto;
+import com.Kim.blog.repository.UserRepository;
 import com.Kim.blog.service.UserService;
 import com.Kim.blog.validator.CheckEmailValidator;
 import com.Kim.blog.validator.CheckNicknameValidator;
@@ -18,15 +20,17 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 @RestController
 @RequiredArgsConstructor
 public class UserApiController {
 
     private final UserService userService;
+    private final UserRepository userRepository;
     private final AuthenticationManager authenticationManager;
-
     private final CheckUsernameValidator checkUsernameValidator;
     private final CheckNicknameValidator checkNicknameValidator;
     private final CheckEmailValidator checkEmailValidator;
@@ -79,6 +83,27 @@ public class UserApiController {
     @PutMapping("/api/user/{user_id}/profileImageUrl")
     public ResponseDto<?> profileImageUpdate(@PathVariable Long user_id, MultipartFile profileImageFile) {
         userService.profileImageUpdate(user_id, profileImageFile);
+
+        return new ResponseDto<>(HttpStatus.OK.value(), 1);
+    }
+
+    @PostMapping("/auth/find")
+    public ResponseDto<?> find(@RequestBody SendTempPwdDto dto) {
+
+        if(!userRepository.existsByUsername(dto.getUsername()) || !Pattern.matches("^[a-zA-Z0-9+-\\_.]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$", dto.getEmail())) {
+            Map<String, String> validResult = new HashMap<>();
+
+            if(!userRepository.existsByUsername(dto.getUsername())) {
+                validResult.put("valid_username", "존재하지 않는 사용자 이름입니다.");
+            }
+            if(!Pattern.matches("^[a-zA-Z0-9+-\\_.]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$", dto.getEmail())) {
+                validResult.put("valid_email", "올바르지 않은 이메일 형식입니다.");
+            }
+
+            return new ResponseDto<>(HttpStatus.BAD_REQUEST.value(), validResult);
+        }
+
+        userService.sendTempPwd(dto);
 
         return new ResponseDto<>(HttpStatus.OK.value(), 1);
     }

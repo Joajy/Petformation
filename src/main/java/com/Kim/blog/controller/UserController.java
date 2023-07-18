@@ -40,4 +40,9 @@ public class UserController {
         userService.kakaoLogin(code);
         return "redirect:/";
     }
+
+    @GetMapping("/auth/findForm")
+    public String findForm() {
+        return "user/findForm";
+    }
 }

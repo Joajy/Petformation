@@ -40,6 +40,18 @@ spring:
       enabled: true
       max-file-size: 2MB
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: BlueStar@gmail.com
+    password: bluestarfakepwd
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
 BlueStar:
   key: bluestar1@
 
