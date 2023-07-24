@@ -4,7 +4,7 @@
     width: 120px;
     height: 40px;
     color: #fff;
-    background: #2ee4ad;
+    background: #2E62E4FF;
     border: none;
     border-radius: 20px;
     transition: 0.3s;
@@ -25,6 +25,26 @@
 
 .btn-login {
     width: 100px;
+    font-size: 13px;
+    font-weight: bold;
+    height: 38px;
+    border-radius: 5px;
+}
+
+.btn-join {
+    font-size: 13px;
+    font-weight: bold;
+    width: 92px;
+    height: 38px;
+    border-radius: 5px;
+}
+
+.btn-find {
+    font-size: 13px;
+    font-weight: bold;
+    width: 100%;
+    height: 38px;
+    border-radius: 5px;
 }
 
 .btn-update {
@@ -34,6 +54,8 @@
 .btn-alarm {
     width: 40px;
     height: 35px;
+    color: white;
+    position:relative;
 }
 
 .btn-list {
@@ -54,9 +76,9 @@
 .btn-outline-recommend {
     border-radius: 5px;
     width: 100px;
-    color: #2ee4ad;
+    color: #2e62e4;
     background: #fff;
-    border: 1px solid #2ee4ad;
+    border: 1px solid #2E62E4FF;
 }
 
 .btn-retouch {
@@ -75,9 +97,9 @@
 
 .btn:hover {
     color: #fff;
-    background: rgba(46, 228, 173, 0.9);
+    background: rgb(46, 98, 228);
     cursor: pointer;
-    box-shadow: 0 2px 4px rgba(46, 228, 173, 0.6);
+    box-shadow: 0 2px 4px rgb(46, 98, 228);
 }
 
 .page-link {
@@ -91,7 +113,7 @@
     z-index: 1;
     color: #fff;
     font-weight:bold;
-    background-color: #2ee4ad;
+    background-color: #2E62E4FF;
     border-color: #ccc;
 }
 

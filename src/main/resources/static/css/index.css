@@ -1,50 +1,84 @@
 @charset "UTF-8";
-th {
-    font-weight: normal;
-    text-align: center;
-}
-
-body{
-    background: #f5f6fa;
-}
 
 html, body {
-    margin: 0;
-    padding: 0;
     height: 100%;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none
 }
 
-#outer-container {
-    display: table;
-    width: 100%;
-    height: 100%;
-}
-
-#sidebar {
-    display: table-cell;
-    width: 15%;
-    vertical-align: top;
-    background-color: #dcdcde;
-    height: 200px;
-}
-
-#content {
-    display: table-cell;
-    width: 85%;
-    vertical-align: top;
-    padding: 30px;
-}
-
-.footer {
+footer {
     width: 100%;
     position: absolute;
     bottom: 0;
     left: 0;
 }
 
-.profile {
-    width: 100px;
-    height: 100px;
-    margin-top: 30px;
-    margin-bottom: 10px;
+#wrapper {
+    min-height: 100%;
+    position: relative;
+}
+
+.flex {
+    display: flex;
+}
+
+.reply {
+    color: red;
+}
+
+#content {
+    padding: 30px;
+    padding-bottom: 200px;
+}
+
+.div-screenshot {
+    width: 180px;
+    margin: 5px;
+    height: 290px;
+    cursor: pointer;
+}
+
+.wrap {
+    width:178.2px;
+    height:180px;
+    overflow:hidden;
+    margin:0 auto;
+}
+
+.thumnail {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.screenshot-card-title {
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.screenshot-bottom {
+    font-size: small;
+    margin-bottom: 5px;
+}
+
+.board-title {
+    width: 250px;
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.board-empty {
+    font-size: 20px;
+    color: #a8a8a8;
+    padding: 10px;
+}
+
+.reply-empty {
+    font-size: 15px;
+    color: #a8a8a8;
+    padding: 10px;
 }

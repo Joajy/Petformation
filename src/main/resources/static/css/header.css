@@ -3,7 +3,7 @@
 @import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
 
 body {
-    font-family: nanumsquare;
+    font-family: nanumsquare, serif;
     word-spacing: -4px;
     position: relative;
     padding-top: 56px;
