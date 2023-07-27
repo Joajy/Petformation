@@ -76,9 +76,9 @@
 .btn-outline-recommend {
     border-radius: 5px;
     width: 100px;
-    color: #2e62e4;
+    color: #2ee4ad;
     background: #fff;
-    border: 1px solid #2E62E4FF;
+    border: 1px solid #2ee4ad;
 }
 
 .btn-retouch {
@@ -91,15 +91,28 @@
     width: 80px;
 }
 
+.btn-admin-modal {
+    background: none;
+    border: none;
+    color: #a8a8a8;
+    font-weight: 600;
+}
+
+.btn-admin {
+    font-size:13px;
+    width: 80px;
+    height: 30px;
+}
+
 .btn:focus {
     outline: 0;
 }
 
 .btn:hover {
     color: #fff;
-    background: rgb(46, 98, 228);
+    background: rgb(46, 228, 173);
     cursor: pointer;
-    box-shadow: 0 2px 4px rgb(46, 98, 228);
+    box-shadow: 0 2px 4px rgb(46, 228, 173);
 }
 
 .page-link {
@@ -113,7 +126,7 @@
     z-index: 1;
     color: #fff;
     font-weight:bold;
-    background-color: #2E62E4FF;
+    background-color: #2ee4ad;
     border-color: #ccc;
 }
 
