@@ -23,6 +23,9 @@ tbody th {
 
 .board-table-title {
     text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .board-table-writer {
