@@ -1,19 +1,15 @@
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <%@ include file="layout/header.jsp"%>
 
-<%--필요 없는 세션 줄이기--%>
-<%@ page session="false" %>
-
 <div class="container">
-    <form action="/" method="GET" class="form-inline p-2 bd-highlight justify-content-between">
+    <form action="/board" method="GET" class="form-inline p-2 bd-highlight justify-content-between">
         <div class="dropdown" style="float: left">
             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">정렬 기준</button>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="/?page=${param.page}&sort=id,DESC&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}">최신순</a>
-                <a class="dropdown-item" href="/?page=${param.page}&sort=count,DESC&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}">인기순</a>
-                <a class="dropdown-item" href="/?page=${param.page}&sort=recommendCount,DESC&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}">추천순</a>
+                <a class="dropdown-item" href="/board?category=${param.category}&page=${param.page}&sort=id,DESC&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}">최신순</a>
+                <a class="dropdown-item" href="/board?category=${param.category}&page=${param.page}&sort=count,DESC&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}">인기순</a>
+                <a class="dropdown-item" href="/board?category=${param.category}&page=${param.page}&sort=recommendCount,DESC&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}">추천순</a>
             </div>
         </div>
         <div style="float: right">
@@ -23,7 +19,7 @@
             </select>
             <input type="hidden" name="searchType" id="searchType" value="title">
             <input type="text" name="searchKeyword" id="searchKeyword" class="form-control" placeholder="검색">
-            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i> 검색</button>
+            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-search"></i> 검색</button>
         </div>
     </form>
     <table class="table table-hover">
