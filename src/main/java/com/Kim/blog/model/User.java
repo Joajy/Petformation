@@ -9,6 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,10 +46,14 @@ public class User {
 
     private String profileImageUrl;
 
+    public String getCreateDate() {
+        return new SimpleDateFormat("yyyy.MM.dd").format(createDate);
+    }
+
     @JsonIgnoreProperties({"user"})
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Board> boards = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
-    private List<Reply> reply = new ArrayList<>();
+    private List<Reply> replys = new ArrayList<>();
 }

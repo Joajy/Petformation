@@ -15,8 +15,8 @@ public class AlarmApiController {
     private final AlarmService alarmService;
 
     @PutMapping("/api/confirm/{reply_id}")
-    public ResponseDto<Integer> alarmConfirm(@PathVariable Long reply_id) {
-        alarmService.alarmConfirm(reply_id);
+    public ResponseDto<Integer> alarmConfirm(@PathVariable("reply_id") Long replyId) {
+        alarmService.alarmConfirm(replyId);
         return new ResponseDto<>(HttpStatus.OK.value(), 1);
     }
 }

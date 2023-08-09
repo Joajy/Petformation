@@ -12,14 +12,14 @@ public class RecommendService {
     private final RecommendRepository recommendRepository;
 
     @Transactional
-    public void recommend(Long board_id, Long principal_id) {
-        recommendRepository.recommend(board_id, principal_id);
-        recommendRepository.ascRecommendCount(board_id);
+    public void recommend(Long boardId, Long principalId) {
+        recommendRepository.recommend(boardId, principalId);
+        recommendRepository.ascRecommendCount(boardId);
     }
 
     @Transactional
-    public void cancelRecommend(Long board_id, Long principal_id){
-        recommendRepository.cancelRecommend(board_id, principal_id);
-        recommendRepository.descRecommendCount(board_id);
+    public void cancelRecommend(Long boardId, Long principalId){
+        recommendRepository.cancelRecommend(boardId, principalId);
+        recommendRepository.descRecommendCount(boardId);
     }
 }

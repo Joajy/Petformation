@@ -1,144 +1,138 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ include file="../layout/header.jsp" %>
+<%@ include file="../layout/header.jsp"%>
 
-<div class="container">
-    <input type="hidden" id="board_id" name="board_id" value="${board.id}"/>
-    <button class="btn btn-secondary" onclick="location.href='/?page=${page}&sort=${sort}&searchType=${searchType}&searchKeyword=${searchKeyword}'"><i class="fa-solid fa-list"></i> List</button>
-    <c:if test="${board.user.id == principal.user.id}">
-        <a href="/board/${board.id}/updateForm" class="btn btn-warning">Edit</a>
-        <button id="btn-delete" class="btn btn-danger">Delete</button>
-    </c:if>
-
-    <div class="d-flex justify-content-between">
-        <span><img class="rounded-circle" src="/upload/${board.user.profileImageUrl}" onerror="this.src='/image/profile.jpg'" width="30" height="30"> ${board.user.nickname}</span><br>
-        <span>
-			<i class="fa-solid fa-calendar-days"></i> ${board.createDate} &nbsp;&nbsp;
-			<i class="fa-solid fa-eye"></i> ${board.count} &nbsp;&nbsp;
-			<i class="fa-solid fa-thumbs-up"></i> ${board.recommendCount}
-		</span>
-    </div>
-    <hr>
-
-    <br/><br/>
-    <div class="form-group">
-        <h3>${board.title}</h3>
-    </div>
-
-    <div class="form-group">
-        <div>${board.content}</div>
-        <c:choose>
-            <c:when test="${board.recommendState}">
-                <div style="text-align: center;">
-                    <c:choose>
-                        <c:when test="${board.user.id != principal.user.id}">
-                            <button onClick="index.recommend(${board.id}, ${board.recommendState})"
-                                    class="btn btn-success" style="display: inline-block;">
-                                추천 <span>${board.recommendCount}</span>
-                            </button>
-                        </c:when>
-                        <c:otherwise>
-                            <button onClick="index.recommend(${board.id}, ${board.recommendState})"
-                                    class="btn btn-success" style="display: inline-block;" disabled>
-                                추천 <span>${board.recommendCount}</span>
-                            </button>
-                        </c:otherwise>
-                    </c:choose>
+<div id="wrapper">
+    <div class="container" id="content" >
+        <div class="board-style">
+            <input type="hidden" id="board_id" name="board_id" value="${board.id}"/>
+            <input type="hidden" id="category" name="category" value="${param.category}"/>
+            <div class="d-flex justify-content-between">
+                <div>
+                    <button class="btn btn-list" onclick="location.href='/board?category=${category}&page=${page}&sort=${sort}&searchType=${searchType}&searchKeyword=${searchKeyword}'">
+                        <i class="fa-solid fa-list"></i> 목록
+                    </button>
                 </div>
-            </c:when>
-            <c:otherwise>
-                <div style="text-align: center;">
-                    <c:choose>
-                        <c:when test="${board.user.id != principal.user.id}">
-                            <button onClick="index.recommend(${board.id}, ${board.recommendState})"
-                                    class="btn btn-outline-success" style="display: inline-block;">
-                                추천 <span>${board.recommendCount}</span>
-                            </button>
-                        </c:when>
-                        <c:otherwise>
-                            <button onClick="index.recommend(${board.id}, ${board.recommendState})"
-                                    class="btn btn-outline-success" style="display: inline-block;" disabled>
-                                추천 <span>${board.recommendCount}</span>
-                            </button>
-                        </c:otherwise>
-                    </c:choose>
+                <c:if test="${board.user.id == principal.user.id or principal.user.role eq 'ADMIN'}">
+                    <div>
+                        <button class="btn btn-retouch" onclick="location.href='/board/${board.id}/updateForm'"><i class="fa-solid fa-pen-to-square"></i> 수정</button>
+                        <button id="btn-delete" class="btn btn-delete"><i class="fa-solid fa-trash"></i> 삭제</button>
+                    </div>
+                </c:if>
+            </div>
+            <br><br>
+            <div class="d-flex justify-content-between">
+                <c:choose>
+                    <c:when test="${board.category eq 'secret'}">
+                        <div><i class="fa-solid fa-user"></i> 익명</div><br>
+                    </c:when>
+                    <c:otherwise>
+                        <div><img class="rounded-circle" src="/upload/${board.user.profileImageUrl}" onerror="this.src='/image/profile.jpg'" width="30" height="30"> ${board.user.nickname}</div><br>
+                    </c:otherwise>
+                </c:choose>
+                <div>
+                    <i class="fa-solid fa-calendar-days"></i> ${board.createDate} &nbsp;&nbsp;
+                    <i class="fa-solid fa-eye"></i> ${board.count} &nbsp;&nbsp;
+                    <i class="fa-solid fa-thumbs-up"></i> ${board.recommendCount}
                 </div>
-            </c:otherwise>
-        </c:choose>
-    </div>
-    <span style="float:right">Post Number: ${board.id}</span><br/>
-    <span style="float:right">Writer: ${board.userNickname}</span><br/>
-    <span style="float:right">Views: ${board.count}</span><br/>
-
-    <div class="card">
-        <form>
-            <input type="hidden" id="boardId" value="${board.id}"/>
-            <div class="card-body">
-                <textarea id="reply-content" class="form-control" rows="1"></textarea>
             </div>
-            <div class="card-footer">
-                <button type="button" id="btn-save-reply" class="btn btn-primary">Submit</button>
+            <hr>
+            <div class="form-group">
+                <h3>${board.title}</h3>
             </div>
-        </form>
-    </div>
-
-    <br/>
-    <div class="list-group">
-        <a href="/board/${board.nextBoard.id}?page=${param.page}&searchKeyword=${param.searchKeyword}"
-           class="list-group-item list-group-item-action <c:if test="${empty board.nextBoard}">disabled</c:if>">
-            <span style="font-weight: bold;">Next</span> |
-             <c:choose>
-                <c:when test="${empty board.nextBoard}">
-                    There is no Next Post.
+            <hr>
+            <div class="form-group">
+                <div>${board.content}</div>
+            </div>
+            <c:choose>
+                <c:when test="${board.recommendState}">
+                    <div align="center">
+                        <button onClick="index_board.recommend(${board.id}, ${board.recommendState})" class="btn btn-recommend">
+                            <i class="fa-regular fa-thumbs-up"></i> 추천 <span>${board.recommendCount}</span>
+                        </button>
+                    </div>
                 </c:when>
                 <c:otherwise>
-                    <span style="color: dodgerblue;">${board.nextBoard.title}</span>
+                    <div align="center">
+                        <button onClick="index_board.recommend(${board.id}, ${board.recommendState})" class="btn btn-recommend btn-outline-recommend"
+                                <c:if test="${board.user.id == principal.user.id}">disabled</c:if>>
+                            <i class="fa-regular fa-thumbs-up"></i> 추천 <span>${board.recommendCount}</span>
+                        </button>
+                    </div>
                 </c:otherwise>
             </c:choose>
-        </a>
-        <a href="/board/${board.prevBoard.id}?page=${param.page}&searchKeyword=${param.searchKeyword}"
-           class="list-group-item list-group-item-action <c:if test="${empty board.prevBoard}">disabled</c:if>">
-            <span style="font-weight: bold;">Previous</span> |
-            <c:choose>
-                <c:when test="${empty board.prevBoard}">
-                    There is no previous Post.
-                </c:when>
-            <c:otherwise>
-                <span style="color: dodgerblue;">${board.prevBoard.title}</span>
-            </c:otherwise>
-        </c:choose>
-        </a>
+            <br>
+            <div class="card">
+                <div class="card-body flex">
+                    <textarea id="reply-content" class="form-control" rows="1"></textarea> &nbsp;
+                    <button id="btn-save-reply" class="btn btn-comment"><i class="fa-solid fa-check"></i> 등록 </button>
+                </div>
+            </div>
+            <br>
+            <div class="card">
+                <div class="card-header"><i class="fa-solid fa-comment-dots"></i> 댓글 <span class="reply">[${fn:length(board.replys)}]</span></div>
+                <ul id="reply-box" class="list-group">
+                    <c:choose>
+                        <c:when test="${board.replys.size() > 0}">
+                            <c:forEach var="reply" items="${board.replys}">
+                                <li id="reply-${reply.id}" class="list-group-item justify-content-between">
+                                    <div class="d-flex">
+                                        <p class="font-bold">
+                                            <c:choose>
+                                            <c:when test="${board.category eq 'secret'}">
+                                        <p><i class="fa-solid fa-user"></i> 익명</p>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <img class="rounded-circle" src="/upload/${reply.user.profileImageUrl}" onerror="this.src='/image/profile.jpg'" width="30" height="30">
+                                            &nbsp;&nbsp;${reply.user.nickname}
+                                        </c:otherwise>
+                                        </c:choose>
+                                        </p>&nbsp;
+                                        <div class="create-datetime">(${reply.createDate})</div>
+                                    </div>
+                                    <div>${reply.content}</div>
+                                    <c:if test="${reply.user.nickname == principal.user.nickname}">
+                                        <button onClick="index_board.deleteReply(${board.id}, ${reply.id})" class="badge float-right"><i class="fa-solid fa-trash"></i> 삭제</button>
+                                    </c:if>
+                                </li>
+                            </c:forEach>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="reply-empty" align="center">댓글이 없습니다.</div>
+                        </c:otherwise>
+                    </c:choose>
+                </ul>
+            </div>
+            <br>
+            <div class="list-group">
+                <a href="/board/${board.nextBoard.id}?page=${param.page}&sort=${param.sort}&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}"
+                   class="list-group-item list-group-item-action <c:if test="${empty board.nextBoard}">disabled</c:if>">
+                    <span class="font-bold"><i class="fa-solid fa-arrow-up"></i>&nbsp; 다음글</span> │
+                    <c:choose>
+                        <c:when test="${empty board.nextBoard}">
+                            다음글이 없습니다.
+                        </c:when>
+                        <c:otherwise>
+                            <span class="detail-bottom">${board.nextBoard.title}</span>
+                        </c:otherwise>
+                    </c:choose>
+                </a>
+                <a href="/board/${board.prevBoard.id}?page=${param.page}&sort=${param.sort}&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}"
+                   class="list-group-item list-group-item-action <c:if test="${empty board.prevBoard}">disabled</c:if>">
+                    <span class="font-bold"><i class="fa-solid fa-arrow-down"></i>&nbsp; 이전글</span> │
+                    <c:choose>
+                        <c:when test="${empty board.prevBoard}">
+                            이전글이 없습니다.
+                        </c:when>
+                        <c:otherwise>
+                            <span class="detail-bottom">${board.prevBoard.title}</span>
+                        </c:otherwise>
+                    </c:choose>
+                </a>
+            </div>
+        </div>
     </div>
-    <br/>
-    <div class="card">
-        <div class="card-header">Comments</div>
-        <ul id="comment-box" class="list-group">
-            <c:forEach var="reply" items="${board.reply}">
-                <li id="reply-${reply.id}" class="list-group-item d-flex justify-content-between">
-                    <div>${reply.content}</div>
-                    <div class="d-flex">
-                        <p style="font-weight: bold;">
-                            <c:choose>
-                                <c:when test="${not empty reply.user.profileImageUrl}">
-                                    <img class="rounded-circle" src="/upload/${board.user.profileImageUrl}" onerror="this.src='/image/profile.jpg'" width="30" height="30">
-                                </c:when>
-                                <c:otherwise>
-                                    <img class="rounded-circle" src="/image/profile.jpg" width="30" height="30">
-                                </c:otherwise>
-                            </c:choose>
-                            &nbsp;${reply.user.nickname}</p>&nbsp;
-                        <br/>
-                        <span style="float:right">${board.createDate} &nbsp</span><br/>
-                        <c:if test="${reply.user.username==principal.user.username}">
-                            <button onclick="index.deleteReply(${board.id}, ${reply.id})" class="badge">Delete</button>
-                        </c:if>
-                    </div>
-                </li>
-            </c:forEach>
-        </ul>
-    </div>
+    <br>
 
-</div>
-
-<script src="/js/board.js"></script>
-<%@ include file="../layout/footer.jsp" %>
+    <script src="/js/board.js"></script>
+<%@ include file="../layout/footer.jsp"%>

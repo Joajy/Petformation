@@ -1,7 +1,7 @@
-let index = {
+let index_user = {
     init: function (){
-        $("#btn-save").on("click", () =>{
-            this.save();
+        $("#btn-join").on("click", () =>{
+            this.join();
         });
         $("#btn-update").on("click", () =>{
             this.update();
@@ -11,7 +11,8 @@ let index = {
         });
     },
 
-    save: function () {
+    join: function () {
+        loadingWithMask();
         let data = {
             username: $("#username").val(),
             password: $("#password").val(),
@@ -25,9 +26,6 @@ let index = {
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
         }).done(function(resp) {
-            if(resp.status == 500){
-                alert("중복된 회원가입입니다.");
-            }
             if(resp.status == 400) {
                 alert("회원가입 입력 정보를 다시 확인해주십시오.");
                 if(resp.data.hasOwnProperty('valid_username')){
@@ -53,10 +51,12 @@ let index = {
                     $('#email').focus();
                 }
                 else $('#valid_email').text('');
+
+                closeLoadingWithMask();
             }
             else {
                 alert("회원가입이 완료되었습니다.");
-                location.href = "/";
+                location.href = "/auth/loginForm";
             }
         }).fail(function(error) {
             alert(JSON.stringify(error));
@@ -106,7 +106,7 @@ let index = {
     },
 
     find: function() {
-        LoadingWithMask();
+        loadingWithMask();
 
         let data = {
             username: $("#username").val(),
@@ -145,7 +145,7 @@ let index = {
     }
 }
 
-index.init();
+index_user.init();
 
 function profileImageUpload(user_id) {
     $("#userProfileImageInput").click();
@@ -171,7 +171,7 @@ function profileImageUpload(user_id) {
             processData: false,	// contentType을 false로 설정할 경우 QueryString이 자동 설정되는 것을 방지
             enctype: "multipart/form-data",
             dataType: "json"
-        }).done(resp => {
+        }).done(() => {
             // 사진 전송 성공시 이미지 변경
             let reader = new FileReader();
             reader.onload = (e) => {
@@ -182,4 +182,37 @@ function profileImageUpload(user_id) {
             console.log(error);
         });
     });
+}
+
+function loadingWithMask() {
+    //화면의 높이와 너비를 구합니다.
+    var maskHeight = $(document).height();
+    var maskWidth  = window.document.body.clientWidth;
+
+    //화면에 출력할 마스크를 설정해줍니다.
+    var mask    = "<div id='mask' style='position:absolute; z-index:9000; background-color:#000000; display:none; left:0; top:0;'></div>";
+    var spinner = "<div id='spinner' style='position: absolute; top: 45%; left: 50%; margin: -16px 0 0 -16px; display: none; color: #4dff93;' class='spinner-border'></div>";
+
+    //화면에 레이어 추가
+    $('body')
+        .append(mask)
+
+    //마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채웁니다.
+    $('#mask').css({
+        'width' : maskWidth,
+        'height': maskHeight,
+        'opacity' : '0.3'
+    });
+
+    //마스크 표시
+    $('#mask').show();
+
+    //로딩중 이미지 표시
+    $('body').append(spinner);
+    $('#spinner').show();
+}
+
+function closeLoadingWithMask() {
+    $('#mask, #spinner').hide();
+    $('#mask, #spinner').empty();
 }

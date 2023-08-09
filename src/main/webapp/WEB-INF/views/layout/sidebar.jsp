@@ -11,8 +11,8 @@
 			<div class="font-bold">${principal.user.nickname}</div>
 		</c:when>
 		<c:otherwise>
-			<img id="userProfileImage" src="image/profile.jpg" class="rounded-circle profile">
-			<div>비로그인 상태입니다.</div>
+			<img id="userProfileImage" src="/image/profile.jpg" class="rounded-circle profile">
+			<div>로그인이 필요합니다.</div>
 		</c:otherwise>
 	</c:choose>
 	<br>

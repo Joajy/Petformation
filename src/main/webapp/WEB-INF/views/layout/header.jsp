@@ -98,7 +98,6 @@
         </div>
     </c:if>
 </nav>
-<br>
 
 <%@ include file="sidebar.jsp"%>
 <script src="/js/alarm.js"></script>

@@ -1,19 +1,21 @@
 package com.Kim.blog.service;
 
+import com.Kim.blog.dto.BoardModalDto;
+import com.Kim.blog.dto.BoardWriteDto;
 import com.Kim.blog.model.Board;
 import com.Kim.blog.model.Reply;
 import com.Kim.blog.model.User;
 import com.Kim.blog.repository.BoardRepository;
 import com.Kim.blog.repository.ReplyRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -24,25 +26,40 @@ public class BoardService {
     private final ReplyRepository replyRepository;
 
     @Transactional
-    public void write(Board board, User user) {
-        board.setCount(0);
-        board.setUser(user);
-        board.setUserNickname(user.getNickname());
+    public void write(BoardWriteDto boardWriteDto, User user) {
+        Board board = Board.builder()
+                .title(boardWriteDto.getTitle())
+                .content(boardWriteDto.getContent())
+                .user(user)
+                .userNickname(user.getNickname())
+                .category(boardWriteDto.getCategory())
+                .count(0)
+                .build();
         boardRepository.save(board);
     }
 
     @Transactional(readOnly = true)
-    public Page<Board> boardList(Pageable pageable) {
-        return boardRepository.findAll(pageable);
-    }
+    public List<BoardModalDto> findByUser(Long userId) {
 
-    @Transactional(readOnly = true)
-    public Page<Board> searchResult(String searchKeyword, Pageable pageable) {
-        return boardRepository.findByTitleContaining(searchKeyword, pageable);
+        List<Board> board = boardRepository.findByUserId(userId);
+        List<BoardModalDto> boardModalDtoList = new ArrayList<>();
+
+        for (Board value : board) {
+            BoardModalDto boardModalDto = BoardModalDto.builder()
+                    .id(value.getId())
+                    .title(value.getTitle())
+                    .createDate(value.getCreateDate())
+                    .views(value.getCount())
+                    .recommend(value.getRecommendCount())
+                    .build();
+
+            boardModalDtoList.add(boardModalDto);
+        }
+        return boardModalDtoList;
     }
 
     @Transactional
-    public Board detail(Long id, HttpServletRequest request, HttpServletResponse response, Long principal_id){
+    public Board detail(Long id, HttpServletRequest request, HttpServletResponse response, Long principalId){
         if(request != null) {
             Cookie[] cookies = request.getCookies();
             Cookie oldCookie = null;
@@ -54,7 +71,7 @@ public class BoardService {
             }
             if (oldCookie != null) {
                 if (!oldCookie.getValue().contains("[" + id.toString() + "]")) {
-                    boardRepository.updateHit(id);
+                    boardRepository.updateCount(id);
                     oldCookie.setValue(oldCookie.getValue() + "_[" + id + "]");
                     oldCookie.setPath("/");
                     oldCookie.setMaxAge(60 * 60 * 24);
@@ -62,7 +79,7 @@ public class BoardService {
                 }
             }
             else {
-                boardRepository.updateHit(id);
+                boardRepository.updateCount(id);
                 Cookie newCookie = new Cookie("boardView", "[" + id + "]");
                 newCookie.setPath("/");
                 newCookie.setMaxAge(60 * 60 * 24);
@@ -71,24 +88,22 @@ public class BoardService {
         }
 
         Board board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("글을 읽어올 수 없습니다.(아이디를 찾을 수 없습니다)"));
-        board.getRecommend().forEach((recommend -> {
-            if(recommend.getUser().getId().equals(principal_id)){
+        board.getRecommends().forEach((recommend) -> {
+            if(recommend.getUser().getId().equals(principalId)){
                 board.setRecommendState(true);
             }
-        }));
+        });
 
         if(board.getSeen() == null){
-            board.setSeen("[" + principal_id.toString() + "]");
+            board.setSeen("[" + principalId.toString() + "]");
         }
         else{
-            board.setSeen(board.getSeen() + "[" + principal_id.toString() + "]");
+            board.setSeen(board.getSeen() + "[" + principalId.toString() + "]");
         }
 
-        board.setRecommendCount(board.getRecommend().size());
-
-        board.setPrevBoard(boardRepository.findPrevBoard(id));
-        board.setNextBoard(boardRepository.findNextBoard(id));
-
+        board.setRecommendCount(board.getRecommends().size());
+        board.setPrevBoard(boardRepository.findPrevBoard(id, board.getCategory()));
+        board.setNextBoard(boardRepository.findNextBoard(id, board.getCategory()));
         return board;
     }
 
@@ -101,6 +116,7 @@ public class BoardService {
     public void update(Long id, Board requestBoard) {
         Board board = boardRepository.findById(id)
                 .orElseThrow(()-> new IllegalArgumentException("글을 찾을 수 없습니다.(아이디를 찾을 수 없습니다)"));
+        board.setCategory(requestBoard.getCategory());
         board.setTitle(requestBoard.getTitle());
         board.setContent(requestBoard.getContent());
     }

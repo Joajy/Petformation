@@ -1,5 +1,6 @@
 package com.Kim.blog.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,6 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 @Data
 @NoArgsConstructor
@@ -23,11 +25,13 @@ public class Reply {
     @Column(nullable = false, length = 200)
     private String content;
 
-    @ManyToOne      //Reply : Board == Many : One
+    @JsonIgnoreProperties({"user", "replys"})
+    @ManyToOne(fetch = FetchType.LAZY)      //Reply : Board == Many : One
     @JoinColumn(name = "board_id")
     private Board board;
 
-    @ManyToOne      //Reply : User == Many : One
+    @JsonIgnoreProperties({"boards", "replys"})
+    @ManyToOne(fetch = FetchType.LAZY)      //Reply : User == Many : One
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -35,4 +39,8 @@ public class Reply {
     private Timestamp createDate;
 
     private boolean alarmConfirmState;
+
+    public String getCreateDate() {
+        return new SimpleDateFormat("yyyy.MM.dd  HH:mm:ss").format(createDate);
+    }
 }

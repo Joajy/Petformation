@@ -61,18 +61,13 @@ public class UserService {
     private String sendFrom;
 
     @Transactional
-    public void save(User user) {
-        String rawPassword = user.getPassword();
-        String encPassword = encoder.encode(rawPassword);
-        user.setPassword(encPassword);
-        user.setRole(RoleType.USER);
+    public void join(User user) {
         userRepository.save(user);
     }
 
-
     //Public API Join
     @Transactional
-    public void save(UserRequestDto userDto) {
+    public void join(UserRequestDto userDto) {
         User user = User.builder()
                 .username(userDto.getUsername())
                 .password(encoder.encode(userDto.getPassword()))
@@ -91,6 +86,11 @@ public class UserService {
         persistence.setNickname(userDto.getNickname());
     }
 
+    @Transactional
+    public void delete(Long userId){
+        userRepository.deleteById(userId);
+    }
+
     @Transactional(readOnly = true)
     public Map<String, String> validateHandling(BindingResult bindingResult) {
         Map<String, String> validatorResult = new HashMap<>();
@@ -99,7 +99,6 @@ public class UserService {
             String validKeyName = String.format("valid_%s", error.getField());
             validatorResult.put(validKeyName, error.getDefaultMessage());
         }
-
         return validatorResult;
     }
 
@@ -174,7 +173,7 @@ public class UserService {
         //check if that id was already joined
         User originUser = userRepository.findByUsername(kakaoUser.getUsername()).orElseGet(User::new);
 
-        if(originUser.getUsername() == null) save(kakaoUser);
+        if(originUser.getUsername() == null) join(kakaoUser);
 
         //processing Login
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(kakaoUser.getUsername(), blueStarKey));
@@ -182,20 +181,20 @@ public class UserService {
     }
 
     @Transactional
-    public void profileImageUpdate(Long user_id, MultipartFile profileImageFile) {
+    public void profileImageUpdate(Long userId, MultipartFile profileImageFile) {
         UUID uuid = UUID.randomUUID();
-        String imageFileName = uuid + "_" + profileImageFile.getOriginalFilename();
-        Path imageFilePath = Paths.get(uploadFolder + imageFileName);
+        String imgFileName = uuid + "_" + profileImageFile.getOriginalFilename();
+        Path imgFilePath = Paths.get(uploadFolder + imgFileName);
 
         try {
-            Files.write(imageFilePath, profileImageFile.getBytes());
+            Files.write(imgFilePath, profileImageFile.getBytes());
         } catch(Exception e) {
             e.printStackTrace();
         }
 
-        User user = userRepository.findById(user_id).orElseThrow(() -> new IllegalArgumentException("프로필 이미지 수정 실패: 존재하지 않는 회원입니다."));
+        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("프로필 이미지 수정 실패: 존재하지 않는 회원입니다."));
 
-        user.setProfileImageUrl(imageFileName);
+        user.setProfileImageUrl(imgFileName);
     }
 
     @Transactional
@@ -205,12 +204,10 @@ public class UserService {
                 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
                 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
                 'u', 'v', 'w', 'x', 'y', 'z'};
-
         String tempPassword = "";
         for (int i = 0; i < 12; i++) {
             tempPassword += set[(int)(set.length * Math.random())];
         }
-
         try {
             SimpleMailMessage message = new SimpleMailMessage();
             message.setTo(dto.getEmail());
@@ -231,9 +228,7 @@ public class UserService {
         } catch (MailException e) {
             e.printStackTrace();
         }
-
         User user = userRepository.findByUsername(dto.getUsername()).orElseThrow(() -> new IllegalArgumentException("임시 비밀번호 변경 실패: 사용자 이름을 찾을 수 없습니다."));
-
         user.setPassword(encoder.encode(tempPassword));
     }
 }

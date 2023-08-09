@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class SendTempPwdDto {
-    public String username;
-    public String email;
+    private String username;
+    private String email;
 }

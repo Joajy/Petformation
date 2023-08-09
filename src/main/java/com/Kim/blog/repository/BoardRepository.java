@@ -8,24 +8,34 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface BoardRepository extends JpaRepository<Board, Long>, JpaSpecificationExecutor<Board> {
+public interface BoardRepository extends JpaRepository<Board, Long>, JpaSpecificationExecutor<Board>{
 
     @Modifying
     @Query("update Board b set b.count = b.count + 1 where b.id = :id")
-    void updateHit(Long id);
+    void updateCount(Long id);
 
-    //LAG로 이전 행의 값 리턴
     @Query(value = "SELECT * FROM board "
-            + "WHERE id = (SELECT prev_no FROM (SELECT id, LAG(id, 1, -1) OVER(ORDER BY id) AS prev_no FROM board) B "
+            + "WHERE id = (SELECT prev_no FROM (SELECT id, LAG(id, 1, -1) OVER(ORDER BY id) AS prev_no FROM board WHERE category = :category) B "
             + "WHERE id = :id)", nativeQuery = true)
-    Board findPrevBoard(Long id);
+    Board findPrevBoard(Long id, String category);
 
-    //LEAD로 다음 행의 값 리턴
     @Query(value = "SELECT * FROM board "
-            + "WHERE id = (SELECT prev_no FROM (SELECT id, LEAD(id, 1, -1) OVER(ORDER BY id) AS prev_no FROM board) B "
+            + "WHERE id = (SELECT prev_no FROM (SELECT id, LEAD(id, 1, -1) OVER(ORDER BY id) AS prev_no FROM board WHERE category = :category) B "
             + "WHERE id = :id)", nativeQuery = true)
-    Board findNextBoard(Long id);
+    Board findNextBoard(Long id, String category);
 
     @Query(value = "SELECT * FROM board WHERE user_id = :user_id ORDER BY id DESC", nativeQuery = true)
     List<Board> findByUserId(Long user_id);
+
+    @Query(value = "select count(*) from board where date(create_date) = date(now())", nativeQuery = true)
+    int countTodayBoard();
+
+    @Query(value = "select count(*) from board where date(create_date) = date(date_add(now(), interval - 1 day))", nativeQuery = true)
+    int countYesterdayBoard();
+
+    @Query(value = "select count(*) from board", nativeQuery = true)
+    int countTotalBoard();
+
+    @Query(value = "select count(*) from board where category = :category", nativeQuery = true)
+    int countByCategory(String category);
 }

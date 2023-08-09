@@ -11,6 +11,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -32,7 +33,7 @@ public class Board {
 
     private int count;
 
-    @JsonIgnoreProperties({"board", "reply"})
+    @JsonIgnoreProperties({"boards", "replys"})
     @ManyToOne      //Board : User == Many : One
     @JoinColumn(name = "user_id")
     private User user;
@@ -46,10 +47,11 @@ public class Board {
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties({"board", "user"})
     @OrderBy("id desc")
-    private List<Reply> reply;
+    private List<Reply> replys = new ArrayList<>();
 
+    @JsonIgnoreProperties({"board", "user"})
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
-    private List<Recommend> recommend;
+    private List<Recommend> recommends;
 
     private boolean recommendState;
 
@@ -62,6 +64,8 @@ public class Board {
     private Board nextBoard;
 
     private String seen;
+
+    private String category;
 
     public String getCreateDate() {
         return new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").format(createDate);

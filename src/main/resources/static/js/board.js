@@ -1,7 +1,7 @@
-let index = {
+let index_board = {
     init: function () {
-        $("#btn-save").on("click", () => {
-            this.save();
+        $("#btn-write").on("click", () => {
+            this.write();
         });
         $("#btn-delete").on("click", () => {
             this.deleteById();
@@ -14,10 +14,16 @@ let index = {
         });
     },
 
-    save: function () {
+    write: function () {
         let data = {
+            category: $("#category option:selected").val(),
             title: $("#title").val(),
-            content: $("#content").val()
+            content: $("#board-content").val()
+        }
+
+        if(!data.title || !data.content || data.title.trim() == '') {
+            alert("글 제목과 내용을 작성해주세요.");
+            return;
         }
 
         $.ajax({
@@ -25,42 +31,33 @@ let index = {
             url: "/api/board",
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
-            dataType: "json"
-        }).done(function (resp) {
-            if (resp.status == 500) {
-                alert("게시글 업로드 중 문제가 발생했습니다.");
-                return false;
-            }
+        }).done(function () {
             alert("게시글이 등록되었습니다.");
-            location.href = "/";
+            location.href = `/board?category=${data.category}`;
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
     },
 
     deleteById: function () {
-        let id = $("#id").val();
+        let id = $("#board_id").val();
+        let category = $("#category").val();
 
         $.ajax({
             type: "DELETE",
             url: "/api/board/" + id,
-            dataType: "json"
-        }).done(function (resp) {
-            if (resp.status == 500) {
-                alert("게시글 삭제 중 문제가 발생했습니다.");
-                return false;
-            }
+        }).done(function () {
             alert("게시글 삭제가 완료되었습니다.");
-            location.href = "/";
+            location.href = `/board?category=${category}`;
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
     },
 
     update: function () {
-        let id = $("#id").val();
-
+        let id = $("#board_id").val();
         let data = {
+            category: $("#category option:selected").val(),
             title: $("#title").val(),
             content: $("#content").val(),
         }
@@ -70,21 +67,16 @@ let index = {
             url: "/api/board/" + id,
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
-            dataType: "json"
-        }).done(function (resp) {
-            if (resp.status == 500) {
-                alert("게시글 수정 중 문제가 발생했습니다.");
-                return false;
-            }
+        }).done(function () {
             alert("게시글 수정이 완료되었습니다.");
-            location.href = "/";
+            location.href = `/board?category=${data.category}`;
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
     },
 
     saveReply: function () {
-        let id = $("#boardId").val();
+        let id = $("#board_id").val();
         let data = {
             content: $("#reply-content").val()
         }
@@ -94,12 +86,7 @@ let index = {
             url: `/api/board/${id}/reply`,
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
-            dataType: "json"
-        }).done(function (resp) {
-            if (resp.status == 500) {
-                alert("댓글 작성 중 문제가 발생했습니다.");
-                return false;
-            }
+        }).done(function () {
             alert("댓글 작성이 완료되었습니다.");
             location.href = `/board/${id}`;
         }).fail(function (error) {
@@ -107,18 +94,14 @@ let index = {
         });
     },
 
-    deleteReply: function (boardId, replyId) {
+    deleteReply: function (board_id, reply_id) {
         $.ajax({
             type: "DELETE",
-            url: `/api/board/${boardId}/reply/${replyId}`,
+            url: `/api/board/${board_id}/reply/${reply_id}`,
             dataType: "json"
-        }).done(function (resp) {
-            if (resp.status == 500) {
-                alert("댓글 삭제 중 문제가 발생했습니다.");
-                return false;
-            }
+        }).done(function () {
             alert("댓글이 삭제되었습니다.");
-            location.href = `/board/${boardId}`;
+            location.href = `/board/${board_id}`;
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
@@ -132,9 +115,7 @@ let index = {
                 url: `/api/board/${board_id}/recommend`,
                 dataType: "json"
             }).done(() => {
-                recommend.removeClass("btn-outline-success");
-                recommend.addClass("btn-success");
-
+                recommend.removeClass("btn-outline-recommend");
                 location.reload();
             }).fail(error => {
                 console.log(error);
@@ -146,19 +127,17 @@ let index = {
                 url: `/api/board/${board_id}/recommend`,
                 dataType: "json"
             }).done(() => {
-                recommend.removeClass("btn-success");
-                recommend.addClass("btn-outline-success");
-
+                recommend.addClass("btn-outline-recommend");
                 location.reload();
             }).fail(error => {
                 console.log(error);
             });
         }
     }
-};
+}
 
-index.init();
+index_board.init();
 
 function selectSearchType() {
-    $("#searchType").val($("#select option:selected").val())
+    $("#searchType").val($("#select option:selected").val());
 }

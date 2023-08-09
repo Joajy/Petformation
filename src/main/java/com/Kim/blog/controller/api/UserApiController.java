@@ -43,33 +43,15 @@ public class UserApiController {
         binder.addValidators(checkEmailValidator);
     }
 
-//    @PostMapping("/auth/joinProc")
-//    public ResponseDto<Integer> save(@RequestBody User user) {
-//        System.out.println("UserApiController: save 함수 호출");
-//        user.setRole(RoleType.USER);
-//        userService.join(user);
-//        return new ResponseDto<>(HttpStatus.OK.value(), 1);
-//    }
-
     @PostMapping("/auth/joinProc")
     public ResponseDto<?> save(@Valid @RequestBody UserRequestDto userDto, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
             Map<String, String> validatorResult = userService.validateHandling(bindingResult);
             return new ResponseDto<>(HttpStatus.BAD_REQUEST.value(), validatorResult);
         }
-        userService.save(userDto);
+        userService.join(userDto);
         return new ResponseDto<>(HttpStatus.OK.value(), 1);
     }
-
-//    @PutMapping("/user")
-//    public ResponseDto<Integer> update(@RequestBody User user) {    //RequestBody 통해 JSON 형식 데이터를 받아옴
-//        userService.update(user);
-//        //Transaction 종료로 DB값은 변경되지만, 세션값 변경되지 않으므로 데이터 일치상태 확인 어려움
-//
-//        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//        return new ResponseDto<>(HttpStatus.OK.value(), 1);
-//    }
 
     @PutMapping("/user")
     public ResponseDto<?> update(@RequestBody UserRequestDto userDto) {
@@ -81,30 +63,30 @@ public class UserApiController {
     }
 
     @PutMapping("/api/user/{user_id}/profileImageUrl")
-    public ResponseDto<?> profileImageUpdate(@PathVariable Long user_id, MultipartFile profileImageFile) {
-        userService.profileImageUpdate(user_id, profileImageFile);
+    public ResponseDto<?> profileImageUpdate(@PathVariable("user_id") Long userId, MultipartFile profileImageFile) {
+        userService.profileImageUpdate(userId, profileImageFile);
+        return new ResponseDto<>(HttpStatus.OK.value(), 1);
+    }
 
+    @DeleteMapping("/api/user/delete/{user_id}")
+    public ResponseDto<?> delete(@PathVariable("user_id") Long userId){
+        userService.delete(userId);
         return new ResponseDto<>(HttpStatus.OK.value(), 1);
     }
 
     @PostMapping("/auth/find")
     public ResponseDto<?> find(@RequestBody SendTempPwdDto dto) {
-
-        if(!userRepository.existsByUsername(dto.getUsername()) || !Pattern.matches("^[a-zA-Z0-9+-\\_.]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$", dto.getEmail())) {
+        if (!userRepository.existsByUsername(dto.getUsername()) || !Pattern.matches("^[a-zA-Z0-9+-\\_.]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$", dto.getEmail())) {
             Map<String, String> validResult = new HashMap<>();
-
-            if(!userRepository.existsByUsername(dto.getUsername())) {
+            if (!userRepository.existsByUsername(dto.getUsername())) {
                 validResult.put("valid_username", "존재하지 않는 사용자 이름입니다.");
             }
-            if(!Pattern.matches("^[a-zA-Z0-9+-\\_.]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$", dto.getEmail())) {
+            if (!Pattern.matches("^[a-zA-Z0-9+-\\_.]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$", dto.getEmail())) {
                 validResult.put("valid_email", "올바르지 않은 이메일 형식입니다.");
             }
-
             return new ResponseDto<>(HttpStatus.BAD_REQUEST.value(), validResult);
         }
-
         userService.sendTempPwd(dto);
-
         return new ResponseDto<>(HttpStatus.OK.value(), 1);
     }
 }

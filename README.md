@@ -36,11 +36,12 @@
   * CRUD Board's post(can only Writer of the post)
   * Add Comment operation
   * Can Recommend by pressing the button
+  * Add sidebar for using view more flexible
 <br/>
 
 ### :orange_book: About User 
   * Can Sign in with General(in our Site) or OAuth 2.0
   * Use validation to Sign up
-
+  * Find forgotten password
 <br/>
 <hr/>
