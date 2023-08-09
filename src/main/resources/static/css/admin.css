@@ -1,0 +1,46 @@
+@charset "UTF-8";
+
+.data {
+    width: 100%;
+    text-align: center;
+}
+
+.data-summary {
+    width: 100%;
+    height: 100px;
+    border: 1px solid #E0E5EE;
+    display: inline-block;
+    padding: 25px 0 0 25px;
+}
+
+.data-summary > dl {
+    float: left;
+    padding: 0 24px 0 0;
+    display: block;
+}
+
+.data-summary > dl > dt {
+    font-size: 13px;
+    letter-spacing: -1px;
+}
+
+.data-summary > dl > dd {
+    font-size: 20px;
+    font-weight: 700;
+    text-align: left;
+    padding-top: 5px;
+}
+
+.chart-title {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    text-align: left;
+    margin: 0 0 10px 5px;
+}
+
+.chart {
+    width: 100%;
+    border: 1px solid #E0E5EE;
+    display: inline-block;
+}
