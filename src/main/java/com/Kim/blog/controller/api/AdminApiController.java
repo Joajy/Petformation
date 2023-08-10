@@ -33,14 +33,14 @@ public class AdminApiController {
 			connection = DriverManager.getConnection(url, user, passwd);
 
 			// Object that include JSON data of DB, and will include in responseObject
-			List<JSONObject> boardList = new LinkedList<JSONObject>();
+			List<JSONObject> boardList = new LinkedList<>();
 
-			String query = "select date(createDate) as 'cd', "
+			String query = "select date(create_date) as 'cd', "
 					+ "count(case when category = 'none' then 0 end) as 'none', "
 					+ "count(case when category = 'secret' then 0 end) as 'secret', "
 					+ "count(case when category = 'screenshot' then 0 end) as 'screenshot', "
 					+ "count(case when category = 'question' then 0 end) as 'question' "
-					+ "from board where createDate between date_add(now(), interval - 1 week) and now() group by cd "
+					+ "from board where create_date between date_add(now(), interval - 1 week) and now() group by cd "
 					+ "order by cd";
 			PreparedStatement prepareStatement = connection.prepareStatement(query);
 			ResultSet rs = prepareStatement.executeQuery(query);
