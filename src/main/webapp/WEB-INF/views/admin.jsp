@@ -90,21 +90,6 @@
             <div class="data">
                 <div class="data-summary">
                     <dl>
-                        <dt>오늘 작성글</dt>
-                        <dd>${countToday}</dd>
-                    </dl>
-                    <dl>
-                        <dt>어제 작성글</dt>
-                        <dd>${countYesterday}</dd>
-                    </dl>
-                    <dl>
-                        <dt>누적 작성글</dt>
-                        <dd>${countTotal}</dd>
-                    </dl>
-                </div>
-
-                <div class="data-summary">
-                    <dl>
                         <dt style="color: red;">자유 게시판</dt>
                         <dd>${countNone}</dd>
                     </dl>
@@ -120,7 +105,23 @@
                         <dt style="color: purple;">질문과 답변</dt>
                         <dd>${countQuestion}</dd>
                     </dl>
-                </div><br><br>
+                </div>
+                <div class="data-summary">
+                    <dl>
+                        <dt>오늘&nbsp;작성글</dt>
+                        <dd>${countToday}</dd>
+                    </dl>
+                    <dl>
+                        <dt>어제&nbsp;작성글</dt>
+                        <dd>${countYesterday}</dd>
+                    </dl>
+                    <dl>
+                        <dt>누적&nbsp;작성글</dt>
+                        <dd>${countTotal}</dd>
+                    </dl>
+                </div>
+
+                <br><br>
 
                 <div class="chart-title">최근 7일 통계</div>
                 <div id="Line_Controls_Chart">

@@ -35,44 +35,49 @@
 <body>
 
 <nav class="navbar navbar-expand-sm bg-light">
-    <div id="sidebarCollapse" style="color: white; margin-right: 20px; font-size: 25px; cursor: pointer;"><i class="fa-solid fa-bars"></i></div>
-    <a class="navbar-brand" href="/">Home</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="collapsibleNavbar">
-        <c:choose>
-            <%--principal이 empty일 경우 로그인과 회원가입을 navbar에 표시--%>
-        <c:when test="${empty principal}">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="/auth/loginForm">Sign in</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/auth/joinForm">Sign up</a>
-            </li>
-            </c:when>
-
+    <div class="flex">
+        <div id="sidebarCollapse" style="color: white; margin-right: 20px; font-size: 25px; cursor: pointer;"><i class="fa-solid fa-bars"></i></div>
+        <a class="navbar-brand" href="/"><i class="fa-solid fa-house"></i> Home</a>
+        <div>
+            <c:choose>
+                <%--principal이 empty일 경우 로그인과 회원가입을 navbar에 표시--%>
+                <c:when test="${empty principal}">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/auth/loginForm"><i class="fa-solid fa-right-to-bracket">
+                            </i> Sign in</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/auth/joinForm"><i class="fa-solid fa-user-plus">
+                            </i> Sign up</a>
+                        </li>
+                    </ul>
+                </c:when>
                 <%--principal이 not empty인 경우 글쓰기, 회원정보 및 로그아웃 링크를 navbar에 표시--%>
-            <c:otherwise>
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="/user/updateForm">Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/logout">Sign out</a>
-                </li>
+                <c:otherwise>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/user/updateForm">
+                                </i> Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">
+                                <i class="fa-solid fa-right-from-bracket">
+                                </i> Sign out</a>
+                        </li>
+                    </ul>
                 </c:otherwise>
-                </c:choose>
+            </c:choose>
+        </div>
     </div>
     <c:if test="${fn:length(alarms) > 0}">
-        <div class="dropdown">
-            <div style="color: white; position:relative;" class="btn dropdown" data-toggle="dropdown">
+        <div class="dropdown" align="right">
+            <div class="btn btn-alarm bg-dark dropdown" data-toggle="dropdown">
                 <i class="fa-solid fa-bell"></i>
-                <c:set var="alarm_count" value="0"/>
+                <c:set var="alarm_count" value="0" />
                 <c:forEach var="alarm" items="${alarms}">
                     <c:if test="${!alarm.alarmConfirmState}">
-                        <c:set var="alarm_count" value="${alarm_count + 1}"/>
+                        <c:set var="alarm_count" value="${alarm_count + 1}" />
                     </c:if>
                 </c:forEach>
                 <c:if test="${alarm_count > 0}">
@@ -83,15 +88,29 @@
                 <span class="alarm-new">새소식&nbsp;&nbsp;</span><span class="alarm-count">${alarm_count}</span>
                 <c:forEach var="alarm" items="${alarms}">
                     <div class="dropdown-item alarm" onclick="alarmConfirm(${alarm.id}, ${alarm.board.id})"
-                         <c:if test="${alarm.alarmConfirmState}">, style="background-color: whiteSmoke;"</c:if>
-                    >
-                        <span style="float: right;">${alarm.createDate}</span>
-                        <span>
-								<div class="alarm-content"><span
-                                        class="alarm-username">${alarm.user.nickname}</span><span>님이 댓글을 남겼습니다.</span></div>
-								<div class="alarm-content">${alarm.content}</div>
-								<div class="alarm-content alarm-title">${alarm.board.title}</div>
-							</span>
+                         <c:if test="${alarm.alarm_confirm_state}">, style="background-color: whiteSmoke;"</c:if>>
+                        <table>
+                            <tr>
+                                <td rowspan="3" style="padding-right: 15px;">
+                                    <c:choose>
+                                        <c:when test="${not empty alarm.user.profileImageUrl}">
+                                            <img class="rounded-circle" src="/upload/${alarm.user.profileImageUrl}" onerror="this.src='/image/profile.jpg'" width="50" height="50">
+                                        </c:when>
+                                        <c:otherwise>
+                                            <img class="rounded-circle" src="/image/profile.jpg" width="50" height="50">
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
+                                <td><div class="alarm-content"><span class="alarm-username">${alarm.user.nickname}</span> leave a comment.</div></td>
+                                <td rowspan="3" valign="top">${alarm.createDate}</td>
+                            </tr>
+                            <tr>
+                                <td><div class="alarm-content">${alarm.content}</div></td>
+                            </tr>
+                            <tr>
+                                <td class="alarm-content alarm-title">${alarm.board.title}</td>
+                            </tr>
+                        </table>
                     </div>
                 </c:forEach>
             </div>
