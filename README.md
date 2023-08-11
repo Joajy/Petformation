@@ -1,4 +1,4 @@
-# :bulb: SpringBoot Board Project
+# :bulb: SpringBoot Pet Community
 ### :computer: Introduction about Project
  * Project name: SpringBoot Board Project
  * Project Purpose: make User's Board and for study
