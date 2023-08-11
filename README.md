@@ -56,6 +56,7 @@
 <hr/>
 
 ### :floppy_disk: Database Schema
-![img.png](img.png)
+![data](https://github.com/Joajy/BlogProject/assets/86274253/05c9beee-1632-4647-a744-d282fc211ee7)
+
 <br/>
 <hr/>
