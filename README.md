@@ -1,4 +1,4 @@
-# :bulb: SpringBoot Board Project
+# :bulb: SpringBoot Pet Community
 ### :computer: Introduction about Project
  * Project name: SpringBoot Board Project
  * Project Purpose: make User's Board and for study
@@ -18,6 +18,7 @@
      * OAuth 2.0
      * MySQL
      * JS
+     * CSS
      * JSP
      * Bootstrap 4(at W3schools)
      * JSTL
@@ -56,6 +57,7 @@
 <hr/>
 
 ### :floppy_disk: Database Schema
-![img.png](img.png)
+![data](https://github.com/Joajy/BlogProject/assets/86274253/05c9beee-1632-4647-a744-d282fc211ee7)
+
 <br/>
 <hr/>
