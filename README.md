@@ -31,17 +31,31 @@
   * Post & Delete Comment
   * Remember Me by using Cookie
   * Post Recommend
+  * Reply Alarm
+  * Generate temporary password by authorizing E-mail
 
 ### :notebook_with_decorative_cover: About Board
   * CRUD Board's post(can only Writer of the post)
   * Add Comment operation
-  * Can Recommend by pressing the button
   * Add sidebar for using view more flexible
+  * Recommend post
+  * If someone leave reply at post, alarm send to user who post it
 <br/>
 
 ### :orange_book: About User 
   * Can Sign in with General(in our Site) or OAuth 2.0
   * Use validation to Sign up
   * Find forgotten password
+  * Update user's information(ex. E-mail, password, nickname)
+
+### :ledger: About Administrator
+   * Admin can operate User, Board, and Reply
+   * Can see board analytics of week with Google Chart
+
+<br/>
+<hr/>
+
+### :floppy_disk: Database Schema
+![img.png](img.png)
 <br/>
 <hr/>
