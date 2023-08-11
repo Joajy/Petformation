@@ -18,6 +18,7 @@
      * OAuth 2.0
      * MySQL
      * JS
+     * CSS
      * JSP
      * Bootstrap 4(at W3schools)
      * JSTL
