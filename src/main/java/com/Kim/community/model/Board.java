@@ -33,7 +33,7 @@ public class Board {
 
     private int count;
 
-    @JsonIgnoreProperties({"boards", "replys"})
+    @JsonIgnoreProperties({"boards", "replies"})
     @ManyToOne      //Board : User == Many : One
     @JoinColumn(name = "user_id")
     private User user;
@@ -47,7 +47,7 @@ public class Board {
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties({"board", "user"})
     @OrderBy("id desc")
-    private List<Reply> replys = new ArrayList<>();
+    private List<Reply> replies = new ArrayList<>();
 
     @JsonIgnoreProperties({"board", "user"})
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)

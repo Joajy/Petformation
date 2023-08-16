@@ -25,12 +25,12 @@ public class Reply {
     @Column(nullable = false, length = 200)
     private String content;
 
-    @JsonIgnoreProperties({"user", "replys"})
+    @JsonIgnoreProperties({"user", "replies"})
     @ManyToOne(fetch = FetchType.LAZY)      //Reply : Board == Many : One
     @JoinColumn(name = "board_id")
     private Board board;
 
-    @JsonIgnoreProperties({"boards", "replys"})
+    @JsonIgnoreProperties({"boards", "replies"})
     @ManyToOne(fetch = FetchType.LAZY)      //Reply : User == Many : One
     @JoinColumn(name = "user_id")
     private User user;

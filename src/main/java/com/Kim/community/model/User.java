@@ -55,5 +55,5 @@ public class User {
     private List<Board> boards = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
-    private List<Reply> replys = new ArrayList<>();
+    private List<Reply> replies = new ArrayList<>();
 }
