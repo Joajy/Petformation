@@ -61,7 +61,7 @@ public class BoardController {
                          @AuthenticationPrincipal PrincipalDetail principal,
                          @RequestParam(value = "category", defaultValue = "none") String category,
                          @RequestParam(value = "page", defaultValue = "0") String page,
-                         @RequestParam(value = "sort", defaultValue = "id, DESC") String sort,
+                         @RequestParam(value = "sort", defaultValue = "id,DESC") String sort,
                          @RequestParam(value = "searchType", defaultValue = "title") String searchType,
                          @RequestParam(value = "searchKeyword", defaultValue = "") String searchKeyword) {
         model.addAttribute("board", boardService.detail(id, request, response, principal.getUser().getId()));
