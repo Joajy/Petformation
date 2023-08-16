@@ -7,7 +7,7 @@
 <div id="wrapper">
     <div id="content" class="container">
         <c:if test="${category eq 'user'}">
-            <div class="board-title">| 회원 관리</div>
+            <div class="board-title">| 회원&nbsp;관리</div>
 
             <!-- 정렬 및 검색 탭 -->
             <form action="/admin" method="GET" class="form-inline bd-highlight justify-content-between">
@@ -31,13 +31,13 @@
             <table class="table board-table table-hover">
                 <thead>
                 <tr>
-                    <th class="board-table-no">번호</th>
+                    <th class="board-table-no">글&nbsp;번호</th>
                     <th class="board-table-writer">아이디</th>
                     <th class="board-table-writer">닉네임</th>
                     <th class="board-table-date">이메일</th>
-                    <th class="board-table-date">가입일</th>
-                    <th class="board-table-no">게시글수</th>
-                    <th class="board-table-no">댓글수</th>
+                    <th class="board-table-date">가입일자</th>
+                    <th class="board-table-no">게시글&nbsp;수</th>
+                    <th class="board-table-no">댓글&nbsp;수</th>
                     <th class="board-table-no">관리</th>
                 </tr>
                 </thead>
@@ -59,7 +59,7 @@
                                     ${user.replyCount}
                             </button>
                         </th>
-                        <th><button class="btn btn-admin" onclick="userKick(${user.id})">회원 추방</button></th>
+                        <th><button class="btn btn-admin" onclick="userKick(${user.id})">회원&nbsp;추방</button></th>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -90,19 +90,19 @@
             <div class="data">
                 <div class="data-summary">
                     <dl>
-                        <dt style="color: red;">자유 게시판</dt>
+                        <dt style="color: red;">자유&nbsp;게시판</dt>
                         <dd>${countNone}</dd>
                     </dl>
                     <dl>
-                        <dt style="color: orange;">비밀 게시판</dt>
+                        <dt style="color: orange;">비밀&nbsp;게시판</dt>
                         <dd>${countSecret}</dd>
                     </dl>
                     <dl>
-                        <dt style="color: green;">스크린샷 게시판</dt>
+                        <dt style="color: green;">스크린샷&nbsp;게시판</dt>
                         <dd>${countScreenshot}</dd>
                     </dl>
                     <dl>
-                        <dt style="color: purple;">질문과 답변</dt>
+                        <dt style="color: purple;">Q&A</dt>
                         <dd>${countQuestion}</dd>
                     </dl>
                 </div>
@@ -123,7 +123,7 @@
 
                 <br><br>
 
-                <div class="chart-title">최근 7일 통계</div>
+                <div class="chart-title">최근&nbsp;7일&nbsp;통계</div>
                 <div id="Line_Controls_Chart">
                     <!-- 라인 차트 생성할 영역 -->
                     <div id="lineChartArea" class="chart"></div>

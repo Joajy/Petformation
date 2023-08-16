@@ -25,12 +25,12 @@
     <table class="table table-hover">
         <thead>
         <tr>
-            <th style="font-weight: bold;">No.</th>
-            <th style="font-weight: bold;">Title</th>
-            <th style="font-weight: bold;">Writer</th>
-            <th style="font-weight: bold;">Created</th>
-            <th style="font-weight: bold;">View</th>
-            <th style="font-weight: bold;">Recommend</th>
+            <th style="font-weight: bold;">글&nbsp;번호</th>
+            <th style="font-weight: bold;">제목</th>
+            <th style="font-weight: bold;">작성자</th>
+            <th style="font-weight: bold;">작성일자</th>
+            <th style="font-weight: bold;">조회수</th>
+            <th style="font-weight: bold;">추천수</th>
         </tr>
         </thead>
         <c:forEach var="board" items="${board.content}">

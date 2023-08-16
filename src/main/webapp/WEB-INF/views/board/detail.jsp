@@ -6,11 +6,11 @@
     <div class="container" id="content" >
         <div class="board-style">
             <input type="hidden" id="board_id" name="board_id" value="${board.id}"/>
-            <input type="hidden" id="category" name="category" value="${param.category}"/>
+            <input type="hidden" id="category" name="category" value="${param.category}">
             <div class="d-flex justify-content-between">
                 <div>
                     <button class="btn btn-list" onclick="location.href='/board?category=${category}&page=${page}&sort=${sort}&searchType=${searchType}&searchKeyword=${searchKeyword}'">
-                        <i class="fa-solid fa-list"></i> 목록
+                        <i class="fa-solid fa-list"></i>목록
                     </button>
                 </div>
                 <c:if test="${board.user.id == principal.user.id or principal.user.role eq 'ADMIN'}">

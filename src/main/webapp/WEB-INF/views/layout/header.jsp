@@ -34,10 +34,10 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-sm bg-light">
+<nav class="navbar navbar-expand-md bg-white navbar-white justify-content-between">
     <div class="flex">
-        <div id="sidebarCollapse" style="color: white; margin-right: 20px; font-size: 25px; cursor: pointer;"><i class="fa-solid fa-bars"></i></div>
-        <a class="navbar-brand" href="/"><i class="fa-solid fa-house"></i> Home</a>
+        <div id="sidebarCollapse" style="color: black; margin-right: 20px; font-size: 25px; cursor: pointer;"><i class="fa-solid fa-bars"></i></div>
+        <a class="navbar-brand" href="/"><i class="fa-solid fa-house"></i> 홈</a>
         <div>
             <c:choose>
                 <%--principal이 empty일 경우 로그인과 회원가입을 navbar에 표시--%>
@@ -45,11 +45,11 @@
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link" href="/auth/loginForm"><i class="fa-solid fa-right-to-bracket">
-                            </i> Sign in</a>
+                            </i> 로그인</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/auth/joinForm"><i class="fa-solid fa-user-plus">
-                            </i> Sign up</a>
+                            </i> 회원가입</a>
                         </li>
                     </ul>
                 </c:when>
@@ -58,12 +58,13 @@
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link" href="/user/updateForm">
-                                </i> Profile</a>
+                                <i class="fa-solid fa-contact-book">
+                                </i> 프로필 &nbsp; 수정</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/logout">
                                 <i class="fa-solid fa-right-from-bracket">
-                                </i> Sign out</a>
+                                </i> 로그아웃</a>
                         </li>
                     </ul>
                 </c:otherwise>
@@ -72,7 +73,7 @@
     </div>
     <c:if test="${fn:length(alarms) > 0}">
         <div class="dropdown" align="right">
-            <div class="btn btn-alarm bg-dark dropdown" data-toggle="dropdown">
+            <div class="btn btn-alarm bg-blue dropdown" data-toggle="dropdown">
                 <i class="fa-solid fa-bell"></i>
                 <c:set var="alarm_count" value="0" />
                 <c:forEach var="alarm" items="${alarms}">
@@ -88,7 +89,7 @@
                 <span class="alarm-new">새소식&nbsp;&nbsp;</span><span class="alarm-count">${alarm_count}</span>
                 <c:forEach var="alarm" items="${alarms}">
                     <div class="dropdown-item alarm" onclick="alarmConfirm(${alarm.id}, ${alarm.board.id})"
-                         <c:if test="${alarm.alarm_confirm_state}">, style="background-color: whiteSmoke;"</c:if>>
+                         <c:if test="${alarm.alarmConfirmState}">, style="background-color: whiteSmoke;"</c:if>>
                         <table>
                             <tr>
                                 <td rowspan="3" style="padding-right: 15px;">
@@ -101,7 +102,7 @@
                                         </c:otherwise>
                                     </c:choose>
                                 </td>
-                                <td><div class="alarm-content"><span class="alarm-username">${alarm.user.nickname}</span> leave a comment.</div></td>
+                                <td><div class="alarm-content"><span class="alarm-username">${alarm.user.nickname}</span> 님이&nbsp;댓글을 &nbsp;남겼습니다.</div></td>
                                 <td rowspan="3" valign="top">${alarm.createDate}</td>
                             </tr>
                             <tr>
