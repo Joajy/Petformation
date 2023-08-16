@@ -70,11 +70,11 @@
             </div>
             <br>
             <div class="card">
-                <div class="card-header"><i class="fa-solid fa-comment-dots"></i> 댓글 <span class="reply">[${fn:length(board.replys)}]</span></div>
+                <div class="card-header"><i class="fa-solid fa-comment-dots"></i> 댓글 <span class="reply">[${fn:length(board.replies)}]</span></div>
                 <ul id="reply-box" class="list-group">
                     <c:choose>
-                        <c:when test="${board.replys.size() > 0}">
-                            <c:forEach var="reply" items="${board.replys}">
+                        <c:when test="${board.replies.size() > 0}">
+                            <c:forEach var="reply" items="${board.replies}">
                                 <li id="reply-${reply.id}" class="list-group-item justify-content-between">
                                     <div class="d-flex">
                                         <p class="font-bold">

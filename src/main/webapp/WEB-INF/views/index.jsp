@@ -38,8 +38,8 @@
             <tbody style="<c:if test='${fn:contains(board.seen, user)}'>color: gray;</c:if>">
             <tr onclick="location.href='/board/${board.id}/?page=${param.page}&sort=${param.sort}&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}&sortType=${param.sortType}'" style="cursor: pointer;">
                 <th>${board.id}</th>
-                <th>${board.title}<c:if test="${fn:length(board.replys) > 0}">
-                    <span style="color: red;">[${fn:length(board.replys)}]</span>
+                <th>${board.title}<c:if test="${fn:length(board.replies) > 0}">
+                    <span style="color: red;">[${fn:length(board.replies)}]</span>
                     </c:if>
                 </th>
                 <th>${board.user.nickname}</th>
