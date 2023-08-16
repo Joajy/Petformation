@@ -35,7 +35,7 @@
 
 .category-ul {
     list-style: none;
-    border-bottom-color: #BF3471FF;
+    border-bottom-color: #ffffff;
     margin: 0;
     padding: 0;
 }
@@ -44,8 +44,7 @@
     text-align: left;
     border-bottom: 1px solid #34495E;
     font-size: 15px;
-    padding: 10px;
-    padding-left: 20px;
+    padding: 10px 10px 10px 20px;
     cursor: pointer;
     transition: background 0.5s ease-in-out;
 }

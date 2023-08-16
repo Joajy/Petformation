@@ -110,9 +110,9 @@
 
 .btn:hover {
     color: #fff;
-    background: rgb(46, 228, 173);
+    background: #2E62E4FF;
     cursor: pointer;
-    box-shadow: 0 2px 4px rgb(46, 228, 173);
+    box-shadow: 0 2px 4px #2E62E4FF;
 }
 
 .page-link {
@@ -126,7 +126,7 @@
     z-index: 1;
     color: #fff;
     font-weight:bold;
-    background-color: #2ee4ad;
+    background-color: #2E62E4FF;
     border-color: #ccc;
 }
 
