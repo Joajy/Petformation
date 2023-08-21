@@ -10,8 +10,9 @@ import java.util.List;
 
 public interface BoardRepository extends JpaRepository<Board, Long>, JpaSpecificationExecutor<Board>{
 
+    //SELECT 제외하고는 무조건 Modifying을 강제함
     @Modifying
-    @Query("update Board b set b.count = b.count + 1 where b.id = :id")
+    @Query(value = "UPDATE board b set b.count = b.count + 1 where b.id = :id", nativeQuery = true)
     void updateCount(Long id);
 
     @Query(value = "SELECT * FROM board "
@@ -27,15 +28,15 @@ public interface BoardRepository extends JpaRepository<Board, Long>, JpaSpecific
     @Query(value = "SELECT * FROM board WHERE user_id = :user_id ORDER BY id DESC", nativeQuery = true)
     List<Board> findByUserId(Long user_id);
 
-    @Query(value = "select count(*) from board where date(createDate) = date(now())", nativeQuery = true)
+    @Query(value = "SELECT count(*) FROM board WHERE DATE(createDate) = DATE(now())", nativeQuery = true)
     int countTodayBoard();
 
-    @Query(value = "select count(*) from board where date(createDate) = date(date_add(now(), interval - 1 day))", nativeQuery = true)
+    @Query(value = "SELECT count(*) FROM board WHERE DATE(createDate) = DATE(date_add(now(), INTERVAL - 1 DATE))", nativeQuery = true)
     int countYesterdayBoard();
 
-    @Query(value = "select count(*) from board", nativeQuery = true)
+    @Query(value = "SELECT count(*) FROM board", nativeQuery = true)
     int countTotalBoard();
 
-    @Query(value = "select count(*) from board where category = :category", nativeQuery = true)
+    @Query(value = "SELECT count(*) FROM board WHERE category = :category", nativeQuery = true)
     int countByCategory(String category);
 }
