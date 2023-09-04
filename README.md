@@ -57,7 +57,8 @@
 <hr/>
 
 ### :floppy_disk: Database Schema
-![data](https://github.com/Joajy/BlogProject/assets/86274253/05c9beee-1632-4647-a744-d282fc211ee7)
+![image](https://github.com/Joajy/Pet-Community-Project/assets/86274253/6d79e70e-d54d-466d-aa98-6f251ff5ea1a)
+
 
 <br/>
 <hr/>
